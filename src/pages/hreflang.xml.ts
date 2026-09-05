@@ -8,36 +8,35 @@
 
 import { getCollection } from 'astro:content';
 
-// Force dynamic execution on Cloudflare edge
+// Prevent pre-rendering on Cloudflare Edge
 export const prerender = false;
 
-// Define your localized fallback constants
+// Define your localized fallbacks
 const LOCALES = ['en', 'fr'];
 const DEFAULT_LOCALE = 'en';
 
-// Explicitly type the route using global namespaces to prevent import errors
-export const GET = async (context: import('astro').APIContext) => {
-  const siteUrl = context.site?.toString().replace(/\/$/, '') || 'https://avantisfs.ca';
+export const GET = async (context) => {
+  // Safe fallback if context.site is not populated in configuration
+  const baseSite = context.site ? context.site.toString() : 'https://avantisfs.ca';
+  const siteUrl = baseSite.replace(/\/$/, '');
 
-  // 1. Fetch your content entries
+  // 1. Fetch collection entries
   const allEntries = await getCollection('blog');
 
-  // 2. Group different slugs by a shared translation ID (e.g., entry.data.translationId)
-  // If you don't use a custom frontmatter ID, this code falls back to using the file name slug
-  const translationGroups: Record<string, Array<{ locale: string; urlPath: string }>> = {};
+  // 2. Map completely unmatched slugs using an object dictionary
+  const translationGroups = {};
 
   for (const entry of allEntries) {
-    // Determine the locale of this specific entry
-    // (Assumes a folder structure like src/content/blog/en/hello.md or a frontmatter 'lang' property)
-    const [localeSegment, ...slugParts] = entry.id.split('/');
+    // Isolate path parts to figure out locale segments
+    const parts = entry.id.split('/');
+    const localeSegment = parts[0];
     const entryLocale = LOCALES.includes(localeSegment) ? localeSegment : DEFAULT_LOCALE;
     
-    // Fallback logic if you don't use a dedicated cross-language ID in frontmatter:
-    // It strips out the language prefix to try matching identical filename paths
-    const cleanId = slugParts.join('/') || entry.id;
-    const translationId = entry.data?.translationId || cleanId;
+    // Group keys using either a custom frontmatter ID or the raw trailing path filename
+    const cleanId = parts.slice(1).join('/') || entry.id;
+    const translationId = entry.data && entry.data.translationId ? entry.data.translationId : cleanId;
 
-    // Resolve what the true public URL route looks like for this item
+    // Build unique slug string pathways
     const pageSlug = entry.slug || entry.id.replace(`${entryLocale}/`, '');
     const urlPath = entryLocale === DEFAULT_LOCALE 
       ? `/blog/${pageSlug}/` 
@@ -53,11 +52,11 @@ export const GET = async (context: import('astro').APIContext) => {
     });
   }
 
-  // 3. Build XML layout
+  // 3. Construct XML structure
   let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
   xml += `<urlset xmlns="http://sitemaps.org" xmlns:xhtml="http://w3.org">\n`;
 
-  // --- A. Base System (Main Pages Routing) ---
+  // --- A. Direct Index Paths ---
   xml += `  <url>\n`;
   xml += `    <loc>${siteUrl}/</loc>\n`;
   xml += `    <xhtml:link rel="alternate" hreflang="x-default" href="${siteUrl}/" />\n`;
@@ -66,11 +65,11 @@ export const GET = async (context: import('astro').APIContext) => {
   }
   xml += `  </url>\n`;
 
-  // --- B. Dynamic System (Unmatched Slugs Mapping) ---
+  // --- B. Asymmetrical Inner Post Mapping Paths ---
   for (const groupKey in translationGroups) {
     const alternates = translationGroups[groupKey];
 
-    // Find the default locale URL fallback to act as x-default
+    // Identify standard x-default alternative
     const defaultTranslation = alternates.find(alt => alt.locale === DEFAULT_LOCALE) || alternates[0];
 
     for (const current of alternates) {
@@ -78,7 +77,7 @@ export const GET = async (context: import('astro').APIContext) => {
       xml += `    <loc>${current.urlPath}</loc>\n`;
       xml += `    <xhtml:link rel="alternate" hreflang="x-default" href="${defaultTranslation.urlPath}" />\n`;
 
-      // Reciprocally output every matched translation in this group
+      // Bidirectional matching loop pairs
       for (const alt of alternates) {
         xml += `    <xhtml:link rel="alternate" hreflang="${alt.locale}" href="${alt.urlPath}" />\n`;
       }
