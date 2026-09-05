@@ -15,7 +15,9 @@ export const GET = async (context) => {
   robots += `\n`;
   
   // Dynamically attach the absolute path to your language sitemap
-  robots += `Sitemap: ${siteUrl}/hreflang.xml\n`;
+  robots += `Sitemap: ${siteUrl}/sitemap.xml\n`;
+robots += `Sitemap: ${siteUrl}/hreflang.xml\n`;
+
 
   return new Response(robots, {
     headers: {
