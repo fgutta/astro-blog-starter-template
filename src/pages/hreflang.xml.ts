@@ -10,7 +10,7 @@ import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 
 // Force runtime rendering on Cloudflare Edge
-export const prerender = true;
+export const prerender = false;
 
 // Define your supported locales
 const LOCALES = ['en-CA', 'fr-CA'];
