@@ -6,54 +6,75 @@
 // Access at: https://avantisfs.ca/hreflang.xml
 // Format follows Google's recommended hreflang XML sitemap specification.
 
-export const GET = () => {
-  const SITE = 'https://avantisfs.ca';
+import type { APIRoute } from 'astro';
+import { getCollection } from 'astro:content';
 
-  // All page pairs: [EN canonical URL, FR canonical URL, last modified date]
-  const pages: [string, string, string][] = [
-    [`${SITE}/`,                      `${SITE}/fr/`,                      '2025-01-01'],
-    [`${SITE}/group-insurance/`,      `${SITE}/fr/assurance-collective/`, '2025-01-01'],
-    [`${SITE}/other-services/`,       `${SITE}/fr/autres-services/`,      '2025-01-01'],
-  ];
+// Force runtime rendering on Cloudflare Edge
+export const prerender = false;
 
-  // Build XML entries — Google requires every URL to list ALL alternates
-  // including itself, its counterpart, and x-default
-  const urlEntries = pages
-    .flatMap(([en_url, fr_url, lastmod]) => [
-      // EN page entry
-      `  <url>
-    <loc>${en_url}</loc>
-    <lastmod>${lastmod}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>${en_url === `${SITE}/` ? '1.0' : '0.8'}</priority>
-    <xhtml:link rel="alternate" hreflang="en-CA"    href="${en_url}"/>
-    <xhtml:link rel="alternate" hreflang="fr-CA"    href="${fr_url}"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="${en_url}"/>
-  </url>`,
-      // FR page entry
-      `  <url>
-    <loc>${fr_url}</loc>
-    <lastmod>${lastmod}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>${fr_url === `${SITE}/fr/` ? '0.9' : '0.8'}</priority>
-    <xhtml:link rel="alternate" hreflang="en-CA"    href="${en_url}"/>
-    <xhtml:link rel="alternate" hreflang="fr-CA"    href="${fr_url}"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="${en_url}"/>
-  </url>`,
-    ])
-    .join('\n');
+// Define your supported locales
+const LOCALES = ['en-CA', 'fr-CA'];
+const DEFAULT_LOCALE = 'en-CA';
 
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset
-  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml">
-${urlEntries}
-</urlset>`;
+export const GET: APIRoute = async (context) => {
+  // Fallback to absolute site URL defined in astro.config
+  const siteUrl = context.site?.toString().replace(/\/$/, '') || 'https://avantisfs.ca';
 
+  // 1. Collect your dynamic routes (e.g., from Content Collections)
+  const blogEntries = await getCollection('blog');
+  
+  // 2. Identify distinct page slugs (assuming identical cross-locale slug paths)
+  const uniqueSlugs = [...new Set(blogEntries.map((entry) => entry.id))];
+
+  // 3. Build XML structure
+  let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+  xml += `<urlset xmlns="http://sitemaps.org" xmlns:xhtml="http://w3.org">\n`;
+
+  // --- A. Generate static main pages (e.g., home page) ---
+  xml += `  <url>\n`;
+  xml += `    <loc>${siteUrl}/</loc>\n`;
+  xml += `    <xhtml:link rel="alternate" hreflang="x-default" href="${siteUrl}/" />\n`;
+  for (const locale of LOCALES) {
+    xml += `    <xhtml:link rel="alternate" hreflang="${locale}" href="${siteUrl}/${locale}/" />\n`;
+  }
+  xml += `  </url>\n`;
+
+  // --- B. Generate dynamic multi-language collection items ---
+  for (const slug of uniqueSlugs) {
+    for (const currentLocale of LOCALES) {
+      // Determine page URL
+      const currentUrl = currentLocale === DEFAULT_LOCALE 
+        ? `${siteUrl}/blog/${slug}/` 
+        : `${siteUrl}/${currentLocale}/blog/${slug}/`;
+
+      xml += `  <url>\n`;
+      xml += `    <loc>${currentUrl}</loc>\n`;
+      
+      // x-default maps to the fallback locale
+      const defaultUrl = `${siteUrl}/blog/${slug}/`;
+      xml += `    <xhtml:link rel="alternate" hreflang="x-default" href="${defaultUrl}" />\n`;
+
+      // Generate localized pairs for alternate tags
+      for (const altLocale of LOCALES) {
+        const altUrl = altLocale === DEFAULT_LOCALE 
+          ? `${siteUrl}/blog/${slug}/` 
+          : `${siteUrl}/${altLocale}/blog/${slug}/`;
+          
+        xml += `    <xhtml:link rel="alternate" hreflang="${altLocale}" href="${altUrl}" />\n`;
+      }
+      xml += `  </url>\n`;
+    }
+  }
+
+  xml += `</urlset>`;
+
+  // 4. Return XML payload optimized for Cloudflare CDN caching
   return new Response(xml, {
     headers: {
       'Content-Type': 'application/xml; charset=utf-8',
-      'Cache-Control': 'public, max-age=86400',
+      'X-Content-Type-Options': 'nosniff',
+      // Cache response at the Cloudflare edge for 1 hour, browser for 10 min
+      'Cache-Control': 'public, max-age=600, s-maxage=3600',
     },
   });
 };
