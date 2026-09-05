@@ -1,0 +1,101 @@
+---
+// src/pages/group-insurance.astro — English group insurance
+import SitePage from '../layouts/SitePage.astro';
+import { en } from '../i18n/en';
+const d = en;
+---
+
+<SitePage d={d} lang="en" page="group" faqs={d.group.faqs}>
+
+  <!-- ═══ HERO ═══ -->
+  <section class="svc-hero">
+    <div class="svc-hero__inner">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">{d.shared.home}</a>
+        <span class="breadcrumb__sep">/</span>
+        <span class="breadcrumb__cur">{d.group.breadcrumb}</span>
+      </nav>
+      <p class="eyebrow eyebrow--light">{d.group.eyebrow}</p>
+      <h1 class="svc-hero__h1">
+        {d.group.h1} <em>{d.group.h1_em}</em>
+      </h1>
+      <p class="svc-hero__body">{d.group.body}</p>
+    </div>
+  </section>
+
+  <!-- ═══ COVERAGES ═══ -->
+  <section class="cov-section anim" aria-labelledby="cov-heading">
+    <div class="cov-header">
+      <p class="eyebrow">{d.group.cov_eyebrow}</p>
+      <h2 class="section-h section-h--dark" id="cov-heading">
+        {d.group.cov_heading} <em>{d.group.cov_heading_em}</em>
+      </h2>
+    </div>
+    <div class="cov-grid">
+      {d.group.coverages.map(c => (
+        <div class="cov-card anim">
+          <div class="cov-card__num">{c.num}</div>
+          <h3 class="cov-card__title">{c.title}</h3>
+          <p class="cov-card__body">{c.body}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ═══ PROCESS ═══ -->
+  <section class="process-section anim" aria-labelledby="proc-heading">
+    <p class="eyebrow eyebrow--light">{d.group.proc_eyebrow}</p>
+    <h2 class="section-h" id="proc-heading">
+      {d.group.proc_heading} <em>{d.group.proc_heading_em}</em>
+    </h2>
+    <div class="process-grid">
+      {d.group.steps.map(s => (
+        <div class="process-step">
+          <div class="process-step__num">{s.num}</div>
+          <div class="process-step__title">{s.title}</div>
+          <p class="process-step__body">{s.body}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ═══ FAQ ═══ -->
+  <section class="faq-section anim" id="faq" aria-labelledby="faq-group-heading">
+    <div class="faq-header">
+      <p class="eyebrow">{d.group.faq_eyebrow}</p>
+      <h2 class="section-h section-h--dark" id="faq-group-heading">
+        {d.group.faq_heading} <em>{d.group.faq_heading_em}</em>
+      </h2>
+    </div>
+    <div class="faq-layout">
+      <div></div>
+      <div class="faq-list">
+        {d.group.faqs.map((faq, i) => (
+          <div class="faq-item" id={`faq-${i + 1}`}>
+            <button class="faq-item__q" aria-expanded="false" aria-controls={`faq-a-${i + 1}`}>
+              {faq.q}
+              <span class="faq-item__icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-item__a" id={`faq-a-${i + 1}`} role="region">
+              <div class="faq-item__a-inner">{faq.a}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CTA ═══ -->
+  <section class="cta-banner" id="contact">
+    <div>
+      <h2 class="cta-banner__h2">
+        {d.group.cta_heading} <em>{d.group.cta_heading_em}</em>
+      </h2>
+      <p class="cta-banner__sub">{d.group.cta_sub}</p>
+    </div>
+    <div style="position:relative;z-index:1">
+      <a href={`mailto:${d.shared.email}`} class="btn btn--gold">{d.group.cta_btn}</a>
+    </div>
+  </section>
+
+</SitePage>
