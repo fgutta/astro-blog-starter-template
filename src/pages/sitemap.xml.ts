@@ -5,39 +5,59 @@
 //
 // Access at: https://avantisfs.ca/sitemap.xml
 
-import type { APIRoute } from 'astro';
+import { getCollection } from 'astro:content';
 
-export const GET: APIRoute = async ({ site }) => {
-  // Define your static or dynamic URLs here (e.g., fetch from a CMS or DB)
-  const baseUrl = site ? site.toString().replace(/\/$/, '') : 'https://avantisfs.ca';
-  
-  const pages = [
-    '',
-    '/about',
-    '/group-insurance',
-    '/other-services',
-    '/fr',
-    '/fr/assrance-collective',
-    '/fr/autres-services'
-  ];
+// Prevent pre-rendering on Cloudflare Edge
+export const prerender = false;
 
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://sitemaps.org">
-  ${pages
-    .map(
-      (page) => `
-  <url>
-    <loc>${baseUrl}${page}</loc>
-    <changefreq>weekly</changefreq>
-  </url>`
-    )
-    .join('')}
-</urlset>`;
+// Define your localized fallbacks
+const LOCALES = ['en', 'fr'];
+const DEFAULT_LOCALE = 'en';
 
-  return new Response(sitemap, {
+export const GET = async (context) => {
+  // Safe fallback if context.site is not populated in configuration
+  const baseSite = context.site ? context.site.toString() : 'https://avantisfs.ca';
+  const siteUrl = baseSite.replace(/\/$/, '');
+
+  // 1. Fetch collection entries
+  const allEntries = await getCollection('blog');
+
+  // 2. Build the standard XML Sitemap layout
+  let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+  xml += `<urlset xmlns="http://sitemaps.org">\n`;
+
+  // --- A. Main Site Index Roots ---
+  xml += `  <url>\n    <loc>${siteUrl}/</loc>\n  </url>\n`;
+  for (const locale of LOCALES) {
+    xml += `  <url>\n    <loc>${siteUrl}/${locale}/</loc>\n  </url>\n`;
+  }
+
+  // --- B. Asymmetrical Inner Post Mapping Paths ---
+  for (const entry of allEntries) {
+    // Isolate path parts to figure out locale segments
+    const parts = entry.id.split('/');
+    const localeSegment = parts[0];
+    const entryLocale = LOCALES.includes(localeSegment) ? localeSegment : DEFAULT_LOCALE;
+
+    // Build the unique slug string pathway
+    const pageSlug = entry.slug || entry.id.replace(`${entryLocale}/`, '');
+    const urlPath = entryLocale === DEFAULT_LOCALE 
+      ? `/blog/${pageSlug}/` 
+      : `/${entryLocale}/blog/${pageSlug}/`;
+
+    xml += `  <url>\n`;
+    xml += `    <loc>${siteUrl}${urlPath}</loc>\n`;
+    xml += `  </url>\n`;
+  }
+
+  xml += `</urlset>`;
+
+  return new Response(xml, {
     headers: {
       'Content-Type': 'application/xml; charset=utf-8',
-      'Cache-Control': 'public, max-age=3600', // Cache for 1 hour on Cloudflare
+      'X-Content-Type-Options': 'nosniff',
+      // Cache at Cloudflare edge for 1 hour, browser for 10 min
+      'Cache-Control': 'public, max-age=600, s-maxage=3600',
     },
   });
 };
