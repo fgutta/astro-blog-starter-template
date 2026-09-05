@@ -1,8 +1,122 @@
 ---
+// src/pages/fr/autres-services.astro — French other services at /fr/autres-services/
 import SitePage from '../../layouts/SitePage.astro';
 import { fr } from '../../i18n/fr';
 const d = fr;
 ---
+
 <SitePage d={d} lang="fr" page="services" faqs={d.services.faqs}>
-  <p>FR Services placeholder</p>
+
+  <!-- HERO -->
+  <section class="svc-hero">
+    <div class="svc-hero__inner">
+      <nav class="breadcrumb" aria-label="Fil d'Ariane">
+        <a href="/fr/">{d.shared.home}</a>
+        <span class="breadcrumb__sep">/</span>
+        <span class="breadcrumb__cur">{d.services.breadcrumb}</span>
+      </nav>
+      <p class="eyebrow eyebrow--light">{d.services.eyebrow}</p>
+      <h1 class="svc-hero__h1">{d.services.h1} <em>{d.services.h1_em}</em></h1>
+      <p class="svc-hero__body">{d.services.body}</p>
+    </div>
+  </section>
+
+  <!-- PERSONAL INSURANCE -->
+  <section class="cov-section anim" aria-labelledby="ins-heading">
+    <div class="cov-header">
+      <p class="eyebrow">{d.services.ins_eyebrow}</p>
+      <h2 class="section-h section-h--dark" id="ins-heading">{d.services.ins_heading} <em>{d.services.ins_heading_em}</em></h2>
+    </div>
+    <div class="cov-grid">
+      {d.services.products.map(p => (
+        <div class="cov-card anim">
+          <div class="cov-card__num">{p.num}</div>
+          <h3 class="cov-card__title">{p.title}</h3>
+          <p class="cov-card__body">{p.body}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- RETIREMENT SPLIT -->
+  <div class="split anim" style="background:var(--stone)">
+    <div class="split__visual">
+      <img
+        src="/images/retirement-planning-montreal.webp"
+        alt="Planification de la retraite pour entrepreneurs à Montréal"
+        loading="lazy" width="800" height="1000"
+      />
+      <div class="split__tag">
+        <div class="split__tag-label">{d.services.ret_tag_label}</div>
+        <div class="split__tag-text">{d.services.ret_tag_text}</div>
+      </div>
+    </div>
+    <div>
+      <p class="eyebrow">{d.services.ret_eyebrow}</p>
+      <div class="gold-rule"></div>
+      <h2 class="split__h2">{d.services.ret_heading} <em>{d.services.ret_heading_em}</em></h2>
+      <p class="split__body">{d.services.ret_body}</p>
+      <div class="checklist">
+        {d.services.ret_checks.map(check => (
+          <div class="check-item">
+            <div class="check-mark" aria-hidden="true">✓</div>
+            <span>{check}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- WEALTH PILLARS -->
+  <section class="wealth-section anim" aria-labelledby="wealth-heading">
+    <p class="eyebrow">{d.services.wlth_eyebrow}</p>
+    <h2 class="section-h section-h--dark" id="wealth-heading">{d.services.wlth_heading} <em>{d.services.wlth_heading_em}</em></h2>
+    <div class="pillars-grid">
+      {d.services.pillars.map(pillar => (
+        <div class="pillar-card anim">
+          <div class="pillar-card__icon" aria-hidden="true">{pillar.icon}</div>
+          <h3 class="pillar-card__title">{pillar.title}</h3>
+          <p class="pillar-card__body">{pillar.body}</p>
+          <div class="tags">
+            {pillar.tags.map(tag => <span class="tag">{tag}</span>)}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section anim" id="faq" aria-labelledby="faq-svc-heading">
+    <div class="faq-header">
+      <p class="eyebrow">{d.services.faq_eyebrow}</p>
+      <h2 class="section-h section-h--dark" id="faq-svc-heading">{d.services.faq_heading} <em>{d.services.faq_heading_em}</em></h2>
+    </div>
+    <div class="faq-layout">
+      <div></div>
+      <div class="faq-list">
+        {d.services.faqs.map((faq, i) => (
+          <div class="faq-item" id={`faq-${i + 1}`}>
+            <button class="faq-item__q" aria-expanded="false" aria-controls={`faq-a-${i + 1}`}>
+              {faq.q}<span class="faq-item__icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-item__a" id={`faq-a-${i + 1}`} role="region">
+              <div class="faq-item__a-inner">{faq.a}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-banner" id="contact">
+    <div>
+      <h2 class="cta-banner__h2">{d.services.cta_heading} <em>{d.services.cta_heading_em}</em></h2>
+      <p class="cta-banner__sub">{d.services.cta_sub}</p>
+    </div>
+    <div style="position:relative;z-index:1">
+      <a href={`mailto:${d.shared.email}`} class="btn btn--gold">{d.services.cta_btn}</a>
+    </div>
+  </section>
+
 </SitePage>

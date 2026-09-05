@@ -1,8 +1,153 @@
 ---
+// src/pages/fr/index.astro — French home page at /fr/
 import SitePage from '../../layouts/SitePage.astro';
 import { fr } from '../../i18n/fr';
 const d = fr;
 ---
+
 <SitePage d={d} lang="fr" page="home" faqs={d.home.faqs}>
-  <p>FR Home placeholder</p>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__left">
+      <div class="hero__overline">
+        <span class="hero__overline-line"></span>
+        <span class="hero__overline-text">{d.home.overline}</span>
+      </div>
+      <h1 class="hero__h1">
+        <span>{d.home.h1_line1}</span>
+        <em>{d.home.h1_em1}</em>
+        <span>{d.home.h1_line2}</span>
+        <em>{d.home.h1_em2}</em>
+      </h1>
+      <p class="hero__body">{d.home.body}</p>
+      <div class="hero__actions">
+        <a href="/fr/autres-services/" class="btn btn--gold">{d.home.cta_primary}</a>
+        <a href="#contact"             class="btn btn--ghost">{d.home.cta_secondary}</a>
+      </div>
+    </div>
+    <div class="hero__right" aria-hidden="true">
+      <div class="manifesto">
+        <p class="manifesto__quote">{d.home.manifesto}</p>
+        <div class="manifesto__rule"></div>
+        <div class="manifesto__pillars">
+          {d.home.pillars.map(p => (
+            <div class="pillar"><span class="pillar__dot"></span><span>{p}</span></div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <div class="philosophy anim">
+    <div class="philosophy__label" aria-hidden="true">
+      <span class="philosophy__label-text">{d.home.phil_label}</span>
+    </div>
+    <div class="philosophy__content">
+      <div>
+        <p class="eyebrow">{d.home.phil_eyebrow}</p>
+        <div class="gold-rule"></div>
+        <h2 class="philosophy__statement">{d.home.phil_statement}</h2>
+      </div>
+      <div>
+        <p class="philosophy__body">{d.home.phil_body}</p>
+        <p class="philosophy__disclaimer">{d.home.phil_disclaimer}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="svc-overview anim" aria-labelledby="svc-heading">
+    <div class="section-header">
+      <div>
+        <p class="eyebrow eyebrow--light">{d.home.svc_eyebrow}</p>
+        <h2 class="section-h" id="svc-heading">{d.home.svc_heading} <em>{d.home.svc_heading_em}</em></h2>
+      </div>
+      <p class="section-header__right">{d.home.svc_sub}</p>
+    </div>
+    <div class="tiles-grid">
+      {d.home.tiles.map(tile => (
+        <a href={tile.link} class="tile">
+          <div class="tile__num">{tile.num}</div>
+          <h3 class="tile__title">{tile.title}</h3>
+          <p class="tile__body">{tile.body}</p>
+          <span class="tile__cta">{tile.cta}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- BUSINESS OWNERS -->
+  <div class="biz anim" id="entrepreneurs">
+    <div class="biz__left">
+      <p class="eyebrow">{d.home.biz_eyebrow}</p>
+      <div class="gold-rule"></div>
+      <h2 class="biz__h2">
+        {d.home.biz_h2.replace(d.home.biz_h2_em, '')}<em>{d.home.biz_h2_em}</em><br />{d.home.biz_sub}
+      </h2>
+      <p class="biz__body">{d.home.biz_body}</p>
+    </div>
+    <div class="biz__right">
+      <div class="strategy">
+        {d.home.strategies.map(s => (
+          <div class="strategy__item">
+            <span class="strategy__num">{s.num}</span>
+            <div>
+              <div class="strategy__title">{s.title}</div>
+              <div class="strategy__body">{s.body}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- TESTIMONIAL -->
+  <div class="testimonial anim">
+    <div class="testimonial__aside">
+      <span class="testimonial__label">{d.home.testi_label}</span>
+      <div class="testimonial__rule"></div>
+    </div>
+    <div>
+      <div class="testimonial__mark" aria-hidden="true">&ldquo;</div>
+      <blockquote class="testimonial__quote">{d.home.testi_quote}</blockquote>
+      <p class="testimonial__attr">{d.home.testi_attr}</p>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <section class="faq-section anim" id="faq" aria-labelledby="faq-heading">
+    <div class="faq-header">
+      <p class="eyebrow">{d.home.faq_eyebrow}</p>
+      <h2 class="section-h section-h--dark" id="faq-heading">{d.home.faq_heading} <em>{d.home.faq_heading_em}</em></h2>
+    </div>
+    <div class="faq-layout">
+      <div></div>
+      <div class="faq-list">
+        {d.home.faqs.map((faq, i) => (
+          <div class="faq-item" id={`faq-${i + 1}`}>
+            <button class="faq-item__q" aria-expanded="false" aria-controls={`faq-a-${i + 1}`}>
+              {faq.q}<span class="faq-item__icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-item__a" id={`faq-a-${i + 1}`} role="region">
+              <div class="faq-item__a-inner">{faq.a}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-banner" id="contact" aria-labelledby="cta-heading">
+    <div>
+      <h2 class="cta-banner__h2" id="cta-heading">{d.home.cta_heading} <em>{d.home.cta_heading_em}</em></h2>
+      <p class="cta-banner__sub">{d.home.cta_sub}</p>
+    </div>
+    <div style="position:relative;z-index:1">
+      <a href={`mailto:${d.shared.email}`} class="btn btn--gold">{d.home.cta_btn}</a>
+    </div>
+  </section>
+
 </SitePage>
