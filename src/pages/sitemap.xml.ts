@@ -5,6 +5,7 @@
 //
 // Access at: https://avantisfs.ca/sitemap.xml
 
+export const runtime = 'edge';
 export const GET = () => {
   const SITE = 'https://avantisfs.ca';
 
