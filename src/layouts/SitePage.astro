@@ -70,6 +70,11 @@ const breadcrumb = page !== 'home' ? {
 } : null;
 
 const year = new Date().getFullYear();
+
+---
+const { currentSlug } = Astro.props; 
+const siteUrl = Astro.site?.toString() || 'https://yourdomain.com';
+const locales = ['en', 'fr'];
 ---
 
 <!DOCTYPE html>
@@ -89,6 +94,16 @@ const year = new Date().getFullYear();
   <link rel="alternate" hreflang={d.hreflang_self} href={self_url} />
   <link rel="alternate" hreflang={d.hreflang_alt}  href={alt_url} />
   <link rel="alternate" hreflang="x-default"        href={`${SITE}/`} />
+
+  <!-- Main SEO Meta tags -->
+  {locales.map((lang) => (
+    <link 
+      rel="alternate" 
+      hreflang={lang} 
+      href={`${siteUrl}${lang}/${currentSlug}`} 
+    />
+  ))}
+  <link rel="alternate" hreflang="x-default" href={`${siteUrl}en/${currentSlug}`} />
 
   <!-- ── Open Graph ── -->
   <meta property="og:type"        content="website" />
