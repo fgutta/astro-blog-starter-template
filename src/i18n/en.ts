@@ -1,0 +1,258 @@
+// src/i18n/en.ts
+export const en = {
+  lang: 'en',
+  locale: 'en-CA',
+  hreflang_self: 'en-CA',
+  hreflang_alt:  'fr-CA',
+  alt_prefix:    '/fr',
+
+  meta: {
+    home: {
+      title:       'Financial Advisor Montreal | Business Owner & Wealth | Avantis',
+      description: 'Avantis Solution Financière: Montreal financial advisor specializing in wealth management, life insurance and planning for business owners and professionals. Free consultation.',
+      og_image:    '/images/og-home-en.jpg',
+    },
+    group: {
+      title:       'Group Insurance Montreal SME | Employee Benefits | Avantis',
+      description: 'Group insurance plans for SMEs in Montreal. Health, dental, disability, EAP. Free comparative analysis. Avantis Solution Financière Inc.',
+      og_image:    '/images/og-group-en.jpg',
+    },
+    services: {
+      title:       'Life Insurance & Wealth Montreal | Business Owner | Avantis',
+      description: 'Life insurance, disability, critical illness and wealth management for entrepreneurs and professionals in Montreal. RRSP, TFSA, segregated funds, estate planning.',
+      og_image:    '/images/og-services-en.jpg',
+    },
+  },
+
+  nav: {
+    home:     'Home',
+    group:    'Group Insurance',
+    services: 'Other Services',
+    cta:      'Start the Conversation',
+    lang:     'FR',
+    lang_aria:'Passer au français',
+    menu_aria:'Primary navigation',
+    skip:     'Skip to main content',
+  },
+
+  footer: {
+    tagline:   'Private wealth advisory for entrepreneurs, professionals and high-net-worth individuals in Montreal.',
+    services:  'Services',
+    company:   'Company',
+    legal:     'Legal',
+    links: {
+      group:      'Group Insurance',
+      personal:   'Personal Insurance',
+      wealth:     'Wealth Management',
+      corporate:  'Corporate Strategies',
+      philosophy: 'Our Philosophy',
+      team:       'Our Team',
+      contact:    'Contact Us',
+      notices:    'Legal Notices',
+      privacy:    'Privacy Policy',
+      regulatory: 'Regulatory Disclosures',
+    },
+    copyright: 'All rights reserved.',
+    disclaimer:'Insurance and investment products are offered through Sun Life Assurance Company of Canada. Segregated funds are subject to the terms of the variable annuity contract. Commissions, management fees, and charges may be associated with these investments. Please read the prospectus before investing. Avantis Solution Financière Inc. is subject to regulation by the Autorité des marchés financiers (AMF).',
+  },
+
+  home: {
+    overline:   'Private Wealth Advisory · Montreal',
+    h1_line1:   'Your wealth,',
+    h1_em1:     'protected.',
+    h1_line2:   'Your legacy,',
+    h1_em2:     'secured.',
+    body:       'Avantis Solution Financière Inc. accompanies entrepreneurs, professionals, and high-net-worth individuals in the Greater Montreal Area in structuring, protecting, and transferring their wealth — with the rigour they deserve.',
+    cta_primary:'Discover Our Approach',
+    cta_secondary:'Start the Conversation',
+
+    manifesto:  'Building wealth takes a lifetime. Protecting it requires an advisor who understands every dimension of your reality.',
+    pillars: [
+      'Business Owners',
+      'High Net Worth Individuals',
+      'Incorporated Professionals',
+      'Pre-Retirement Planning',
+    ],
+
+    phil_eyebrow:   'Our Approach',
+    phil_label:     'Our philosophy',
+    phil_statement: 'We don\'t manage portfolios. We accompany financial destinies.',
+    phil_body:      'Every recommendation we make is grounded in a deep understanding of your situation — tax, estate, family, and entrepreneurial. We explain the why behind every strategy, not just the what. Because you built your wealth by understanding every decision you made. You deserve the same clarity from your financial advisor.',
+    phil_disclaimer:'We operate within the regulatory framework of Sun Life Canada and applicable provincial regulatory authorities.',
+
+    svc_eyebrow: 'What We Offer',
+    svc_heading: 'Three pillars of an',
+    svc_heading_em:'integrated strategy',
+    svc_sub:     'Our areas of expertise complement one another to form a holistic view of your situation — protection, growth, and transfer, treated as a coherent whole.',
+    tiles: [
+      { num:'01', title:'Group Insurance',    body:'Employee benefit plans that retain your best talent and demonstrate your commitment to those who grow your business.',                              link:'/group-insurance/', cta:'Explore →' },
+      { num:'02', title:'Personal Insurance', body:'Life, disability, critical illness, corporate insurance — a financial armour built around your real vulnerabilities, not a product list.',        link:'/other-services/',  cta:'Explore →' },
+      { num:'03', title:'Wealth Management',  body:'RRSP, TFSA, segregated funds, estate and tax planning — a strategic orchestration of all your assets, today and for generations to come.',        link:'/other-services/',  cta:'Explore →' },
+    ],
+
+    biz_eyebrow: 'For Business Owners',
+    biz_h2:      'Your business is your most valuable asset.',
+    biz_h2_em:   'most valuable asset.',
+    biz_sub:     'Protect it accordingly.',
+    biz_body:    'The financial issues of a business owner go far beyond a personal portfolio. We understand this reality and integrate it into every strategy we develop with you.',
+    strategies: [
+      { num:'01', title:'Corporate-Owned Life Insurance (COLI)',   body:'Tax-sheltered cash value accumulation inside your corporation, with tax-advantaged transfer via the Capital Dividend Account (CDA).' },
+      { num:'02', title:'Individual Pension Plan (IPP)',            body:'A more powerful retirement tool than the RRSP for incorporated owners aged 40+ — higher contributions, deductible by the corporation.' },
+      { num:'03', title:'Shareholder Agreement & Key Person Insurance', body:'Protect your business continuity and ensure an orderly buyout of shares in the event of the death or disability of a shareholder.' },
+      { num:'04', title:'Estate Freeze & Business Transfer',        body:'Crystallize the current value of your business to minimize capital gains tax at death and facilitate transfer to the next generation.' },
+    ],
+
+    testi_label: 'Client Perspective',
+    testi_quote: 'For the first time, I feel like my advisor truly understands my complete situation — not just my portfolio, but my business, my family, and what I want to leave behind.',
+    testi_attr:  'Entrepreneur, manufacturing sector — client for 8 years',
+
+    faq_eyebrow: 'Frequently Asked Questions',
+    faq_heading: 'What our clients',
+    faq_heading_em:'ask',
+    faqs: [
+      { q:'What is a financial security advisor in Montreal?',
+        a:'A financial security advisor is a professional authorized by the AMF who can offer life insurance, disability insurance, and annuity products. At Avantis, our advisors combine this expertise with wealth planning to offer an integrated approach in Montreal and the Greater Montreal Area.' },
+      { q:'What is the difference between a financial advisor and a wealth manager?',
+        a:'A financial advisor covers a broad range of needs — insurance, investments, retirement — while a wealth manager focuses more on growing and transferring assets. At Avantis, we integrate both roles for Montreal entrepreneurs and high-income individuals with complex needs.' },
+      { q:'Is Avantis independent or bank-affiliated?',
+        a:'Avantis Solution Financière Inc. is an independent firm operating within the Sun Life of Canada network. Our advice is oriented toward your needs, not toward the products of a single banking institution.' },
+      { q:'Which professionals benefit most from your services in Montreal?',
+        a:'We primarily serve incorporated business owners, physicians, dentists, lawyers, and accountants, as well as executives and individuals with significant wealth in the Greater Montreal Area.' },
+    ],
+
+    cta_heading:    'Your situation deserves a',
+    cta_heading_em: 'serious conversation.',
+    cta_sub:        'The first meeting is confidential, free of charge, and no-obligation. We listen before we recommend.',
+    cta_btn:        'Start the Conversation',
+  },
+
+  group: {
+    breadcrumb: 'Group Insurance',
+    eyebrow:    'For Visionary Employers',
+    h1:         'Group',
+    h1_em:      'Insurance',
+    body:       'Your employees are the engine of your success. A well-structured benefits plan is not a cost — it is a strategic investment in their engagement, health, and long-term loyalty.',
+
+    cov_eyebrow: 'Available Coverages',
+    cov_heading: 'What your plan',
+    cov_heading_em:'can include',
+    coverages: [
+      { num:'01', title:'Group Life Insurance',          body:'Basic death protection with options for dependents and additional optional coverages based on your employees\' needs.' },
+      { num:'02', title:'Short & Long-Term Disability',  body:'Income replacement in case of incapacity — the most important safety net you can offer your team to maintain their financial stability.' },
+      { num:'03', title:'Supplemental Health Insurance', body:'Prescription drugs, paramedical care, private hospitalization — protections that go beyond basic provincial plans.' },
+      { num:'04', title:'Dental Care',                   body:'Basic care, major care, and orthodontics — a highly valued benefit for employees and their families.' },
+      { num:'05', title:'Employee Assistance Program',   body:'Mental health, counseling, legal and financial services. Concrete, confidential support in difficult moments.' },
+      { num:'06', title:'Health Spending Account (HSA)', body:'Maximum flexibility to cover unreimbursed medical expenses — each employee chooses what suits them best.' },
+    ],
+
+    proc_eyebrow: 'Our Process',
+    proc_heading: 'We build your plan',
+    proc_heading_em:'with you',
+    steps: [
+      { num:'01', title:'Analysis of Your Reality',       body:'Needs, budget, employee profile, and business objectives.' },
+      { num:'02', title:'Plan Design',                    body:'Selection of the most suitable coverages, levels, and insurers.' },
+      { num:'03', title:'Market Tender',                  body:'Rigorous comparison of market offers to ensure the best value.' },
+      { num:'04', title:'Implementation & Communication', body:'Smooth rollout and information sessions for your employees.' },
+      { num:'05', title:'Annual Review',                  body:'Continuous plan optimization as your business evolves.' },
+    ],
+
+    faq_eyebrow: 'Frequently Asked Questions',
+    faq_heading: 'Group Insurance —',
+    faq_heading_em:'your questions',
+    faqs: [
+      { q:'How much does a group insurance plan cost for an SME in Montreal?',
+        a:'The cost varies based on number of employees, chosen coverages, and the group\'s risk profile. For an SME with 5 to 20 employees in Montreal, premiums can range from $150 to $600 per employee per month. We provide a free comparative analysis to find you the best value.' },
+      { q:'What is the difference between short-term and long-term disability insurance?',
+        a:'Short-term disability (STD) typically covers the first 17 weeks of incapacity, taking over from Employment Insurance sickness benefits. Long-term disability (LTD) then takes over and can cover the employee until retirement depending on plan terms.' },
+      { q:'Are employee benefit plan premiums tax-deductible for my business?',
+        a:'Yes. Group insurance premiums paid by the employer are generally deductible as business expenses. Some coverages are also exempt from taxable benefits for employees.' },
+      { q:'Can we set up a group plan for a business with fewer than 5 employees?',
+        a:'Yes, several insurers offer solutions for very small businesses. The Health Spending Account (HSA) is particularly flexible for small groups and incorporated self-employed professionals.' },
+      { q:'What is a Health Spending Account (HSA)?',
+        a:'An HSA is a tax-advantaged account funded by the employer that employees can draw from to cover medical expenses not reimbursed by their base plan. It is fully deductible for the business.' },
+    ],
+
+    cta_heading:    'Already have a plan? We offer a',
+    cta_heading_em: 'free comparative analysis.',
+    cta_sub:        'Discover if your current plan offers you the best possible value.',
+    cta_btn:        'Start the Conversation',
+  },
+
+  services: {
+    breadcrumb: 'Other Services',
+    eyebrow:    'Protection & Wealth',
+    h1:         'Personal Insurance &',
+    h1_em:      'Wealth Management',
+    body:       'Two complementary disciplines — one protects what you have built, the other grows it and transfers it. Together, they form the backbone of a complete financial strategy for entrepreneurs and professionals in Montreal.',
+
+    ins_eyebrow:    'Personal Insurance',
+    ins_heading:    'A bespoke',
+    ins_heading_em: 'financial armour',
+    products: [
+      { num:'01', title:'Term & Permanent Life Insurance', body:'We determine together the type, amount, and structure that match your protection and estate planning objectives.' },
+      { num:'02', title:'Disability Insurance',            body:'Your income is your most valuable asset. For incorporated professionals, disability protection is an absolute necessity with own-occupation definition.' },
+      { num:'03', title:'Critical Illness',                body:'A lump-sum payment upon surviving a covered condition — freely usable for care, compensating income loss, or maintaining your lifestyle.' },
+      { num:'04', title:'Long-Term Care',                  body:'The least planned for, but among the most important as retirement approaches. Fund your care without eroding your estate.' },
+      { num:'05', title:'Corporate-Owned Life Insurance',  body:'Tax-privileged accumulation inside your corporation — cash value grows tax-sheltered, transferred via the Capital Dividend Account (CDA).' },
+      { num:'06', title:'Key Person Insurance',            body:'Protect your business against the loss of an indispensable individual. Ensure operational continuity and reassure your partners and creditors.' },
+    ],
+
+    ret_eyebrow:    'Pre-Retirement',
+    ret_heading:    'Transforming your capital into',
+    ret_heading_em: 'sustainable income',
+    ret_body:       'The transition to retirement is one of the most complex financial decisions. We orchestrate your decumulation to maximize your after-tax income, minimize risks, and preserve what you wish to transfer.',
+    ret_tag_label:  'Retirement Planning',
+    ret_tag_text:   '"The right time to plan for retirement is now."',
+    ret_checks: [
+      'Optimized decumulation strategy (RRSP/RRIF, TFSA, corporate income)',
+      'Retirement income splitting to reduce your tax bill',
+      'Sun Life segregated funds with capital guarantees at maturity and death',
+      'Coordination with QPP / CPP and Old Age Security',
+      'Protection against longevity risk — never outliving your money',
+    ],
+
+    wlth_eyebrow:   'Wealth Management',
+    wlth_heading:   'Build, grow,',
+    wlth_heading_em:'transfer',
+    pillars: [
+      { icon:'◈', title:'Registered & Non-Registered Savings', body:'Optimization of all your savings vehicles for maximum after-tax growth — tailored to your personal and corporate situation.',                                        tags:['RRSP','TFSA','RRIF','RESP','IPP'] },
+      { icon:'◈', title:'Sun Life Segregated Funds',           body:'Market growth with the guarantees of an insurance contract — capital protection, potential creditor protection, beneficiary designation bypassing probate.',          tags:['Capital Guarantee','Creditor Protection','Beneficiary Designation'] },
+      { icon:'◈', title:'Tax Planning',                        body:'Strategies coordinated with your accountant to minimize your annual tax bill and estate taxes — incorporated individuals and corporations.',                           tags:['Income Splitting','CDA','CEEA'] },
+      { icon:'◈', title:'Estate Planning',                     body:'Transfer your wealth in an orderly, tax-efficient manner that respects your wishes — in collaboration with your notary and accountant.',                               tags:['Will','Estate Freeze','Family Trust'] },
+    ],
+
+    faq_eyebrow:    'Frequently Asked Questions',
+    faq_heading:    'Insurance & wealth —',
+    faq_heading_em: 'your questions',
+    faqs: [
+      { q:'What is the difference between term and permanent life insurance for a business owner?',
+        a:'Term life insurance provides coverage for a defined period at a lower initial cost — ideal for covering a business loan. Permanent life insurance offers lifetime coverage and accumulates cash value you can use or transfer through your corporation in a tax-advantaged manner.' },
+      { q:'How does Corporate-Owned Life Insurance (COLI) work in Quebec?',
+        a:'Life insurance held by your corporation allows tax-sheltered cash value accumulation inside your business. At death, excess death benefit can be paid to shareholders through the Capital Dividend Account (CDA), tax-free — one of the most effective strategies for incorporated business owners in Quebec.' },
+      { q:'What is an Individual Pension Plan (IPP) and who is it for?',
+        a:'An IPP is a defined benefit pension plan for incorporated business owners, allowing significantly higher contributions than the RRSP — particularly advantageous for owners aged 45+. Contributions are deductible by the corporation and assets are protected from creditors.' },
+      { q:'How do I protect my income if I am a physician unable to work?',
+        a:'Incorporated professionals need disability insurance with an own-occupation definition, protection of corporate income in addition to personal income, and coverage of fixed office expenses. We structure solutions tailored to physicians, dentists, lawyers, and accountants in Montreal.' },
+      { q:'What is an estate freeze and when should it be implemented?',
+        a:'An estate freeze crystallizes the current value of your business shares to transfer future growth to the next generation. It minimizes capital gains tax at death and facilitates business succession. Ideally implemented well before the sale or transfer of the business.' },
+      { q:'Are Sun Life segregated funds protected from creditors?',
+        a:'Segregated funds can benefit from creditor protection when a protected class beneficiary is designated (spouse, child, grandchild, parent). Particularly valuable for entrepreneurs whose assets may be at risk.' },
+    ],
+
+    cta_heading:    'Your situation is unique.',
+    cta_heading_em: 'So is our approach.',
+    cta_sub:        'First meeting confidential, free of charge, no obligation. We listen before we recommend.',
+    cta_btn:        'Start the Conversation',
+  },
+
+  shared: {
+    home:      'Home',
+    email:     'info@avantisfs.ca',
+    phone:     '+1 (514) 000-0000',
+    city:      'Montreal, Quebec',
+    site:      'https://avantisfs.ca',
+    firm:      'Avantis Solution Financière Inc.',
+  },
+} as const;
+
+export type Dict = typeof en;

@@ -1,0 +1,258 @@
+// src/i18n/fr.ts
+export const fr = {
+  lang: 'fr',
+  locale: 'fr-CA',
+  hreflang_self: 'fr-CA',
+  hreflang_alt:  'en-CA',
+  alt_prefix:    '',
+
+  meta: {
+    home: {
+      title:       'Conseiller Financier Montréal | Entrepreneur & Patrimoine | Avantis',
+      description: 'Avantis Solution Financière : conseiller financier à Montréal spécialisé en gestion de patrimoine, assurance vie et planification pour entrepreneurs et professionnels. Consultation gratuite.',
+      og_image:    '/images/og-home-fr.jpg',
+    },
+    group: {
+      title:       'Assurance Collective Montréal PME | Avantages Sociaux | Avantis',
+      description: 'Régimes d\'assurance collective pour PME à Montréal. Santé, dentaire, invalidité, PAE. Analyse comparative gratuite. Avantis Solution Financière Inc.',
+      og_image:    '/images/og-group-fr.jpg',
+    },
+    services: {
+      title:       'Assurance Vie & Patrimoine Montréal | Entrepreneur | Avantis',
+      description: 'Assurance vie, invalidité, maladies graves et gestion de patrimoine pour entrepreneurs et professionnels à Montréal. REER, CELI, fonds distincts, planification successorale.',
+      og_image:    '/images/og-services-fr.jpg',
+    },
+  },
+
+  nav: {
+    home:     'Accueil',
+    group:    'Assurance collective',
+    services: 'Autres services',
+    cta:      'Amorcer la conversation',
+    lang:     'EN',
+    lang_aria:'Switch to English',
+    menu_aria:'Navigation principale',
+    skip:     'Passer au contenu principal',
+  },
+
+  footer: {
+    tagline:   'Conseil patrimonial privé pour entrepreneurs, professionnels et particuliers à valeur nette élevée à Montréal.',
+    services:  'Services',
+    company:   'Entreprise',
+    legal:     'Légal',
+    links: {
+      group:      'Assurance collective',
+      personal:   'Assurance de personnes',
+      wealth:     'Gestion de patrimoine',
+      corporate:  'Stratégies corporatives',
+      philosophy: 'Notre philosophie',
+      team:       'Notre équipe',
+      contact:    'Nous joindre',
+      notices:    'Mentions légales',
+      privacy:    'Confidentialité',
+      regulatory: 'Divulgations réglementaires',
+    },
+    copyright: 'Tous droits réservés.',
+    disclaimer:'Les produits d\'assurance et de placement sont offerts par l\'intermédiaire de Sun Life du Canada, compagnie d\'assurance-vie. Les fonds distincts sont soumis aux conditions du contrat de rente variable. Des commissions, frais de gestion et charges peuvent être associés à ces placements. Veuillez lire le prospectus avant d\'investir. Avantis Solution Financière Inc. est assujettie à la réglementation de l\'Autorité des marchés financiers (AMF).',
+  },
+
+  home: {
+    overline:     'Conseil patrimonial privé · Montréal',
+    h1_line1:     'Votre patrimoine,',
+    h1_em1:       'protégé.',
+    h1_line2:     'Votre héritage,',
+    h1_em2:       'perpétué.',
+    body:         'Avantis Solution Financière Inc. accompagne les entrepreneurs, professionnels et particuliers à valeur nette élevée de la grande région de Montréal dans la structuration, la protection et la transmission de leur patrimoine — avec la rigueur qu\'ils méritent.',
+    cta_primary:  'Découvrir notre approche',
+    cta_secondary:'Amorcer la conversation',
+
+    manifesto:  'Bâtir une fortune prend une vie. La protéger exige un conseiller qui comprend chaque dimension de votre réalité.',
+    pillars: [
+      'Propriétaires d\'entreprise',
+      'Particuliers à valeur nette élevée',
+      'Professionnels incorporés',
+      'Planification à l\'approche de la retraite',
+    ],
+
+    phil_eyebrow:   'Notre approche',
+    phil_label:     'Notre philosophie',
+    phil_statement: 'Nous ne gérons pas des portefeuilles. Nous accompagnons des destins financiers.',
+    phil_body:      'Chaque recommandation que nous formulons s\'appuie sur une compréhension approfondie de votre situation — fiscale, successorale, familiale et entrepreneuriale. Nous vous expliquons le pourquoi derrière chaque stratégie, pas seulement le quoi. Parce que vous avez bâti votre patrimoine en comprenant chaque décision que vous preniez. Vous méritez la même clarté de votre conseiller financier.',
+    phil_disclaimer:'Nous œuvrons dans le cadre réglementaire de Sun Life Canada et des autorités de réglementation provinciales applicables.',
+
+    svc_eyebrow:    'Ce que nous offrons',
+    svc_heading:    'Trois piliers d\'une',
+    svc_heading_em: 'stratégie intégrée',
+    svc_sub:        'Nos domaines d\'expertise se complètent pour former une vision globale de votre situation — protection, croissance et transmission, traités comme un tout cohérent.',
+    tiles: [
+      { num:'01', title:'Assurance collective',   body:'Des régimes d\'avantages sociaux qui fidélisent vos meilleurs talents et démontrent votre engagement envers ceux qui font grandir votre entreprise.',                       link:'/fr/assurance-collective/', cta:'Explorer →' },
+      { num:'02', title:'Assurance de personnes', body:'Vie, invalidité, maladies graves, assurance corporative — une armure financière construite autour de vos vulnérabilités réelles, pas d\'une liste de produits.',          link:'/fr/autres-services/',       cta:'Explorer →' },
+      { num:'03', title:'Gestion de patrimoine',  body:'REER, CELI, fonds distincts, planification successorale et fiscale — une orchestration stratégique de tous vos actifs, aujourd\'hui et pour les générations à venir.', link:'/fr/autres-services/',       cta:'Explorer →' },
+    ],
+
+    biz_eyebrow: 'Pour les propriétaires d\'entreprise',
+    biz_h2:      'Votre entreprise est votre actif le plus précieux.',
+    biz_h2_em:   'actif le plus précieux.',
+    biz_sub:     'Protégez-la en conséquence.',
+    biz_body:    'Les enjeux financiers d\'un propriétaire d\'entreprise vont bien au-delà d\'un portefeuille personnel. Nous comprenons cette réalité et l\'intégrons à chaque stratégie que nous élaborons avec vous.',
+    strategies: [
+      { num:'01', title:'Assurance vie corporative (COLI)',             body:'Accumulation de valeur de rachat à l\'abri de l\'impôt à l\'intérieur de votre société, avec transfert fiscalement avantageux via le compte de dividendes en capital.' },
+      { num:'02', title:'Régime de retraite individuel (RRI)',          body:'Un outil de retraite plus puissant que le REER pour les propriétaires incorporés de 40 ans et plus — cotisations plus élevées, déductibles par la société.' },
+      { num:'03', title:'Convention d\'actionnaires & homme clé',       body:'Protégez la continuité de votre entreprise et assurez un rachat ordonné des parts en cas de décès ou d\'invalidité d\'un actionnaire.' },
+      { num:'04', title:'Gel successoral & transfert d\'entreprise',    body:'Cristallisez la valeur actuelle de votre entreprise pour minimiser l\'impôt sur les gains en capital et faciliter la transmission à la prochaine génération.' },
+    ],
+
+    testi_label: 'Témoignage client',
+    testi_quote: 'Pour la première fois, j\'ai l\'impression que mon conseiller comprend vraiment l\'ensemble de ma situation — pas seulement mon portefeuille, mais mon entreprise, ma famille et ce que je veux laisser derrière moi.',
+    testi_attr:  'Entrepreneur, secteur manufacturier — client depuis 8 ans',
+
+    faq_eyebrow:    'Questions fréquentes',
+    faq_heading:    'Ce que nos clients',
+    faq_heading_em: 'demandent',
+    faqs: [
+      { q:'Qu\'est-ce qu\'un conseiller en sécurité financière à Montréal ?',
+        a:'Un conseiller en sécurité financière est un professionnel autorisé par l\'AMF qui peut vous proposer des produits d\'assurance vie, d\'invalidité et de rentes. Chez Avantis, nos conseillers combinent cette expertise avec la planification de patrimoine pour offrir une approche intégrée à Montréal et dans la grande région métropolitaine.' },
+      { q:'Quelle est la différence entre un conseiller financier et un gestionnaire de patrimoine ?',
+        a:'Un conseiller financier peut couvrir un large éventail de besoins — assurances, placements, retraite — tandis qu\'un gestionnaire de patrimoine se concentre davantage sur la croissance et la transmission des actifs. Chez Avantis, nous intégrons les deux rôles pour les entrepreneurs et particuliers à haut revenu de Montréal.' },
+      { q:'Avantis est-il indépendant ou affilié à une banque ?',
+        a:'Avantis Solution Financière Inc. est un cabinet indépendant qui œuvre dans le cadre du réseau Sun Life du Canada. Nos conseils sont orientés vers vos besoins, et non vers les produits d\'une seule institution bancaire.' },
+      { q:'Quels professionnels bénéficient le plus de vos services à Montréal ?',
+        a:'Nous accompagnons principalement les propriétaires d\'entreprise incorporée, les médecins, dentistes, avocats et comptables, ainsi que les dirigeants d\'entreprise et particuliers ayant un patrimoine significatif dans la grande région de Montréal.' },
+    ],
+
+    cta_heading:    'Votre situation mérite une',
+    cta_heading_em: 'conversation sérieuse.',
+    cta_sub:        'La première rencontre est confidentielle, sans frais et sans engagement. Nous écoutons avant de recommander.',
+    cta_btn:        'Amorcer la conversation',
+  },
+
+  group: {
+    breadcrumb:  'Assurance collective',
+    eyebrow:     'Pour les employeurs visionnaires',
+    h1:          'Assurance',
+    h1_em:       'collective',
+    body:        'Vos employés sont le moteur de votre réussite. Un régime d\'avantages sociaux bien structuré n\'est pas une dépense — c\'est un investissement stratégique dans leur engagement, leur santé et leur fidélité à long terme.',
+
+    cov_eyebrow:    'Couvertures disponibles',
+    cov_heading:    'Ce que votre régime',
+    cov_heading_em: 'peut inclure',
+    coverages: [
+      { num:'01', title:'Assurance vie collective',         body:'Protection de base en cas de décès, avec options pour les personnes à charge et couvertures facultatives supplémentaires.' },
+      { num:'02', title:'Invalidité courte et longue durée',body:'Remplacement du revenu en cas d\'incapacité — le filet de sécurité le plus important que vous puissiez offrir à votre équipe.' },
+      { num:'03', title:'Assurance maladie complémentaire', body:'Médicaments, soins paramédicaux, hospitalisation privée — des protections qui vont au-delà des régimes provinciaux de base.' },
+      { num:'04', title:'Soins dentaires',                  body:'Soins de base, soins importants et orthodontie — un avantage hautement valorisé par les employés et leurs familles.' },
+      { num:'05', title:'Programme d\'aide aux employés',   body:'Santé mentale, counseling, services juridiques et financiers. Un soutien concret et confidentiel dans les moments difficiles.' },
+      { num:'06', title:'Compte de gestion santé (CGS)',    body:'Flexibilité maximale pour couvrir les dépenses médicales non remboursées — chaque employé choisit ce qui lui convient.' },
+    ],
+
+    proc_eyebrow:   'Notre processus',
+    proc_heading:   'Nous construisons votre régime',
+    proc_heading_em:'avec vous',
+    steps: [
+      { num:'01', title:'Analyse de votre réalité',     body:'Besoins, budget, profil de vos employés et objectifs d\'affaires.' },
+      { num:'02', title:'Conception du régime',         body:'Sélection des couvertures, des niveaux et des assureurs les mieux adaptés.' },
+      { num:'03', title:'Appel d\'offres marché',       body:'Comparaison rigoureuse des offres pour vous assurer la meilleure valeur.' },
+      { num:'04', title:'Implantation & communication', body:'Mise en place fluide et séances d\'information pour vos employés.' },
+      { num:'05', title:'Révision annuelle',            body:'Optimisation continue du régime selon l\'évolution de votre entreprise.' },
+    ],
+
+    faq_eyebrow:    'Questions fréquentes',
+    faq_heading:    'Assurance collective —',
+    faq_heading_em: 'vos questions',
+    faqs: [
+      { q:'Combien coûte un régime d\'assurance collective pour une PME à Montréal ?',
+        a:'Le coût varie selon le nombre d\'employés, les couvertures choisies et le profil de risque du groupe. Pour une PME de 5 à 20 employés à Montréal, les primes peuvent varier de 150 $ à 600 $ par employé par mois. Nous réalisons une analyse comparative gratuite pour vous trouver le meilleur rapport qualité-prix.' },
+      { q:'Quelle est la différence entre l\'assurance invalidité courte durée et longue durée ?',
+        a:'L\'assurance invalidité courte durée (ICD) couvre généralement les 17 premières semaines d\'incapacité. L\'assurance invalidité longue durée (ILD) prend ensuite le relais et peut couvrir l\'employé jusqu\'à la retraite selon les conditions du régime.' },
+      { q:'Est-ce qu\'un régime d\'avantages sociaux est déductible pour mon entreprise ?',
+        a:'Oui. Les primes d\'assurance collective payées par l\'employeur sont généralement déductibles à titre de dépenses d\'entreprise. Certaines couvertures sont aussi exemptes d\'avantages imposables pour les employés.' },
+      { q:'Peut-on mettre en place un régime collectif pour une entreprise de moins de 5 employés ?',
+        a:'Oui, plusieurs assureurs offrent des solutions pour les très petites entreprises. Le Compte de gestion santé (CGS) est particulièrement flexible pour les petits groupes et travailleurs autonomes incorporés.' },
+      { q:'Qu\'est-ce qu\'un Compte de gestion santé (CGS) ?',
+        a:'Un CGS est un compte à impôt avantageux que l\'employeur alimente pour que les employés remboursent des dépenses médicales non couvertes. Il est entièrement déductible pour l\'entreprise et offre une flexibilité maximale.' },
+    ],
+
+    cta_heading:    'Vous avez déjà un régime? Nous offrons une',
+    cta_heading_em: 'analyse comparative sans frais.',
+    cta_sub:        'Découvrez si votre régime actuel vous offre la meilleure valeur possible.',
+    cta_btn:        'Amorcer la conversation',
+  },
+
+  services: {
+    breadcrumb: 'Autres services',
+    eyebrow:    'Protection & Patrimoine',
+    h1:         'Assurance de personnes &',
+    h1_em:      'Gestion de patrimoine',
+    body:       'Deux disciplines complémentaires — l\'une protège ce que vous avez bâti, l\'autre le fait croître et le transmet. Ensemble, elles forment l\'épine dorsale d\'une stratégie financière complète pour entrepreneurs et professionnels à Montréal.',
+
+    ins_eyebrow:    'Assurance de personnes',
+    ins_heading:    'Une armure financière',
+    ins_heading_em: 'sur mesure',
+    products: [
+      { num:'01', title:'Assurance vie temporaire & permanente', body:'Nous déterminons ensemble le type, le montant et la structure qui correspondent à vos objectifs de protection et de planification successorale.' },
+      { num:'02', title:'Assurance invalidité',                  body:'Votre revenu est votre actif le plus précieux. Pour les professionnels incorporés, la protection d\'invalidité est une nécessité absolue — avec définition « own occupation ».' },
+      { num:'03', title:'Maladies graves',                       body:'Un versement forfaitaire à la survie d\'une condition couverte — utilisable librement pour les soins, compenser une perte de revenu ou maintenir votre niveau de vie.' },
+      { num:'04', title:'Soins de longue durée',                 body:'La solution la moins planifiée, mais parmi les plus importantes à l\'approche de la retraite. Financez vos soins sans éroder votre patrimoine.' },
+      { num:'05', title:'Assurance vie corporative (COLI)',       body:'Accumulation fiscalement privilégiée à l\'intérieur de votre société — valeur de rachat à l\'abri de l\'impôt, transfert via le compte de dividendes en capital (CDC).' },
+      { num:'06', title:'Assurance homme clé',                   body:'Protégez votre entreprise contre la perte d\'un individu indispensable. Assurez la continuité de vos opérations et rassurez vos partenaires et créanciers.' },
+    ],
+
+    ret_eyebrow:    'À l\'approche de la retraite',
+    ret_heading:    'Transformer votre capital en',
+    ret_heading_em: 'revenu durable',
+    ret_body:       'La transition vers la retraite est l\'une des décisions financières les plus complexes. Nous orchestrons votre décaissement de manière à maximiser votre revenu après impôt, minimiser les risques et préserver ce que vous souhaitez transmettre.',
+    ret_tag_label:  'Planification retraite',
+    ret_tag_text:   '« Le bon moment pour planifier sa retraite, c\'est maintenant. »',
+    ret_checks: [
+      'Stratégie de décaissement optimisé (REER/FERR, CELI, revenus de société)',
+      'Fractionnement de revenu à la retraite pour réduire la facture fiscale',
+      'Fonds distincts Sun Life avec garanties de capital à l\'échéance et au décès',
+      'Coordination avec la RRQ / RPC et la Sécurité de la vieillesse',
+      'Protection contre le risque de longévité — ne pas manquer d\'argent de son vivant',
+    ],
+
+    wlth_eyebrow:   'Gestion de patrimoine',
+    wlth_heading:   'Construire, faire croître,',
+    wlth_heading_em:'transmettre',
+    pillars: [
+      { icon:'◈', title:'Épargne enregistrée & non enregistrée', body:'Optimisation de l\'ensemble de vos véhicules d\'épargne pour une croissance maximale après impôt — selon votre situation personnelle et corporative.',                             tags:['REER','CELI','FERR','REEE','RRI'] },
+      { icon:'◈', title:'Fonds distincts Sun Life',               body:'La croissance des marchés avec les garanties d\'un contrat d\'assurance — protection du capital, protection contre les créanciers, désignation de bénéficiaire sans homologation.', tags:['Garantie capital','Protection créanciers','Désignation bénéficiaire'] },
+      { icon:'◈', title:'Planification fiscale',                  body:'Stratégies coordonnées avec votre comptable pour minimiser votre facture fiscale annuelle et celle de votre succession — particuliers incorporés et entreprises.',               tags:['Fractionnement','CDC','REEA'] },
+      { icon:'◈', title:'Planification successorale',             body:'Transmettez votre patrimoine de façon ordonnée, fiscalement efficiente et conforme à vos volontés — en collaboration avec votre notaire et votre comptable.',                     tags:['Testament','Gel successoral','Fiducie familiale'] },
+    ],
+
+    faq_eyebrow:    'Questions fréquentes',
+    faq_heading:    'Assurance & patrimoine —',
+    faq_heading_em: 'vos questions',
+    faqs: [
+      { q:'Quelle est la différence entre l\'assurance vie temporaire et permanente pour un entrepreneur ?',
+        a:'L\'assurance vie temporaire protège pour une période définie à un coût initial moins élevé — idéale pour couvrir un emprunt d\'entreprise. L\'assurance vie permanente offre une couverture à vie et accumule une valeur de rachat que vous pouvez utiliser ou transférer via votre société de manière fiscalement avantageuse.' },
+      { q:'Comment fonctionne l\'assurance vie corporative (COLI) au Québec ?',
+        a:'L\'assurance vie détenue par votre société permet d\'accumuler de la valeur de rachat à l\'abri de l\'impôt. Au décès, le capital-décès excédentaire peut être versé aux actionnaires via le compte de dividendes en capital (CDC), sans impôt — une des stratégies les plus efficaces pour les propriétaires incorporés au Québec.' },
+      { q:'Qu\'est-ce que le Régime de retraite individuel (RRI) et à qui s\'adresse-t-il ?',
+        a:'Le RRI est un régime de retraite à prestations déterminées pour propriétaires incorporés. Il permet des cotisations significativement plus élevées que le REER — particulièrement avantageux pour les propriétaires de 45 ans et plus. Les cotisations sont déductibles par la société et les actifs sont protégés des créanciers.' },
+      { q:'Comment protéger mon revenu si je suis médecin incorporé et incapable de travailler ?',
+        a:'Les professionnels incorporés ont besoin d\'une assurance invalidité avec définition propre à leur profession (« own occupation »), protection du revenu de la société en plus du revenu personnel, et couverture des dépenses fixes de bureau. Nous structurons des solutions adaptées aux médecins, dentistes, avocats et comptables de Montréal.' },
+      { q:'Qu\'est-ce qu\'un gel successoral et quand faut-il le mettre en place ?',
+        a:'Un gel successoral consiste à figer la valeur actuelle de vos actions pour en transférer la croissance future aux générations suivantes. Il minimise l\'impôt sur les gains en capital au décès et facilite la relève d\'entreprise. Idéalement mis en place bien avant la vente ou le transfert de l\'entreprise.' },
+      { q:'Les fonds distincts Sun Life sont-ils protégés des créanciers ?',
+        a:'Les fonds distincts peuvent bénéficier d\'une protection contre les créanciers lorsqu\'un bénéficiaire de catégorie protégée est désigné (conjoint, enfant, petit-enfant, parent). Particulièrement précieux pour les entrepreneurs dont les actifs peuvent être à risque.' },
+    ],
+
+    cta_heading:    'Votre situation est unique.',
+    cta_heading_em: 'Notre approche aussi.',
+    cta_sub:        'Première rencontre confidentielle, sans frais, sans engagement. Nous écoutons avant de recommander.',
+    cta_btn:        'Amorcer la conversation',
+  },
+
+  shared: {
+    home:  'Accueil',
+    email: 'info@avantisfs.ca',
+    phone: '+1 (514) 000-0000',
+    city:  'Montréal, Québec',
+    site:  'https://avantisfs.ca',
+    firm:  'Avantis Solution Financière Inc.',
+  },
+} as const;
+
+export type Dict = typeof fr;
