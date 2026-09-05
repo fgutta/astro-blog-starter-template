@@ -39,8 +39,8 @@ export const GET = async (context) => {
     // Build unique slug string pathways
     const pageSlug = entry.slug || entry.id.replace(`${entryLocale}/`, '');
     const urlPath = entryLocale === DEFAULT_LOCALE 
-      ? `/blog/${pageSlug}/` 
-      : `/${entryLocale}/blog/${pageSlug}/`;
+      ? `/${pageSlug}/` 
+      : `/${entryLocale}/${pageSlug}/`;
 
     if (!translationGroups[translationId]) {
       translationGroups[translationId] = [];
