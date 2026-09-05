@@ -1,19 +1,23 @@
 ---
 // src/pages/robots.txt.ts
-export const GET = () => {
-  const body = `User-agent: *
+import type { APIRoute } from 'astro';
+
+export const prerender = true; // 👈 Forces Astro to generate it statically at build time
+
+const getRobotsTxt = (sitemapURL: URL) => `
+User-agent: *
 Allow: /
-
-# Primary sitemap
-Sitemap: https://avantisfs.ca/sitemap.xml
-
-# Hreflang sitemap (bilingual alternate links)
-Sitemap: https://avantisfs.ca/hreflang.xml
-
-# Disallow Astro build artifacts
-Disallow: /_astro/
+Sitemap: ${sitemapURL.href}
 `;
-  return new Response(body, {
-    headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+
+export const GET: APIRoute = ({ site }) => {
+  if (!site) {
+    return new Response('User-agent: *\nAllow: /', {
+      headers: { 'Content-Type': 'text/plain' }
+    });
+  }
+  const sitemapURL = new URL('sitemap-index.xml', site);
+  return new Response(getRobotsTxt(sitemapURL), {
+    headers: { 'Content-Type': 'text/plain' }
   });
 };
