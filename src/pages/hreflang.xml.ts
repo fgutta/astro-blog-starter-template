@@ -6,32 +6,58 @@
 // Access at: https://avantisfs.ca/hreflang.xml
 // Format follows Google's recommended hreflang XML sitemap specification.
 
-import type { APIRoute } from 'astro';
-
 import { getCollection } from 'astro:content';
 
-// Force runtime rendering on Cloudflare Edge
+// Force dynamic execution on Cloudflare edge
 export const prerender = false;
 
-// Define your supported locales
-const LOCALES = ['en-CA', 'fr-CA'];
-const DEFAULT_LOCALE = 'en-CA';
+// Define your localized fallback constants
+const LOCALES = ['en', 'fr'];
+const DEFAULT_LOCALE = 'en';
 
-export const GET: APIRoute = async (context) => {
-  // Fallback to absolute site URL defined in astro.config
+// Explicitly type the route using global namespaces to prevent import errors
+export const GET = async (context: import('astro').APIContext) => {
   const siteUrl = context.site?.toString().replace(/\/$/, '') || 'https://avantisfs.ca';
 
-  // 1. Collect your dynamic routes (e.g., from Content Collections)
-  const blogEntries = await getCollection('blog');
-  
-  // 2. Identify distinct page slugs (assuming identical cross-locale slug paths)
-  const uniqueSlugs = [...new Set(blogEntries.map((entry) => entry.id))];
+  // 1. Fetch your content entries
+  const allEntries = await getCollection('blog');
 
-  // 3. Build XML structure
+  // 2. Group different slugs by a shared translation ID (e.g., entry.data.translationId)
+  // If you don't use a custom frontmatter ID, this code falls back to using the file name slug
+  const translationGroups: Record<string, Array<{ locale: string; urlPath: string }>> = {};
+
+  for (const entry of allEntries) {
+    // Determine the locale of this specific entry
+    // (Assumes a folder structure like src/content/blog/en/hello.md or a frontmatter 'lang' property)
+    const [localeSegment, ...slugParts] = entry.id.split('/');
+    const entryLocale = LOCALES.includes(localeSegment) ? localeSegment : DEFAULT_LOCALE;
+    
+    // Fallback logic if you don't use a dedicated cross-language ID in frontmatter:
+    // It strips out the language prefix to try matching identical filename paths
+    const cleanId = slugParts.join('/') || entry.id;
+    const translationId = entry.data?.translationId || cleanId;
+
+    // Resolve what the true public URL route looks like for this item
+    const pageSlug = entry.slug || entry.id.replace(`${entryLocale}/`, '');
+    const urlPath = entryLocale === DEFAULT_LOCALE 
+      ? `/blog/${pageSlug}/` 
+      : `/${entryLocale}/blog/${pageSlug}/`;
+
+    if (!translationGroups[translationId]) {
+      translationGroups[translationId] = [];
+    }
+
+    translationGroups[translationId].push({
+      locale: entryLocale,
+      urlPath: `${siteUrl}${urlPath}`,
+    });
+  }
+
+  // 3. Build XML layout
   let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
   xml += `<urlset xmlns="http://sitemaps.org" xmlns:xhtml="http://w3.org">\n`;
 
-  // --- A. Generate static main pages (e.g., home page) ---
+  // --- A. Base System (Main Pages Routing) ---
   xml += `  <url>\n`;
   xml += `    <loc>${siteUrl}/</loc>\n`;
   xml += `    <xhtml:link rel="alternate" hreflang="x-default" href="${siteUrl}/" />\n`;
@@ -40,28 +66,21 @@ export const GET: APIRoute = async (context) => {
   }
   xml += `  </url>\n`;
 
-  // --- B. Generate dynamic multi-language collection items ---
-  for (const slug of uniqueSlugs) {
-    for (const currentLocale of LOCALES) {
-      // Determine page URL
-      const currentUrl = currentLocale === DEFAULT_LOCALE 
-        ? `${siteUrl}/blog/${slug}/` 
-        : `${siteUrl}/${currentLocale}/blog/${slug}/`;
+  // --- B. Dynamic System (Unmatched Slugs Mapping) ---
+  for (const groupKey in translationGroups) {
+    const alternates = translationGroups[groupKey];
 
+    // Find the default locale URL fallback to act as x-default
+    const defaultTranslation = alternates.find(alt => alt.locale === DEFAULT_LOCALE) || alternates[0];
+
+    for (const current of alternates) {
       xml += `  <url>\n`;
-      xml += `    <loc>${currentUrl}</loc>\n`;
-      
-      // x-default maps to the fallback locale
-      const defaultUrl = `${siteUrl}/blog/${slug}/`;
-      xml += `    <xhtml:link rel="alternate" hreflang="x-default" href="${defaultUrl}" />\n`;
+      xml += `    <loc>${current.urlPath}</loc>\n`;
+      xml += `    <xhtml:link rel="alternate" hreflang="x-default" href="${defaultTranslation.urlPath}" />\n`;
 
-      // Generate localized pairs for alternate tags
-      for (const altLocale of LOCALES) {
-        const altUrl = altLocale === DEFAULT_LOCALE 
-          ? `${siteUrl}/blog/${slug}/` 
-          : `${siteUrl}/${altLocale}/blog/${slug}/`;
-          
-        xml += `    <xhtml:link rel="alternate" hreflang="${altLocale}" href="${altUrl}" />\n`;
+      // Reciprocally output every matched translation in this group
+      for (const alt of alternates) {
+        xml += `    <xhtml:link rel="alternate" hreflang="${alt.locale}" href="${alt.urlPath}" />\n`;
       }
       xml += `  </url>\n`;
     }
@@ -69,12 +88,10 @@ export const GET: APIRoute = async (context) => {
 
   xml += `</urlset>`;
 
-  // 4. Return XML payload optimized for Cloudflare CDN caching
   return new Response(xml, {
     headers: {
       'Content-Type': 'application/xml; charset=utf-8',
       'X-Content-Type-Options': 'nosniff',
-      // Cache response at the Cloudflare edge for 1 hour, browser for 10 min
       'Cache-Control': 'public, max-age=600, s-maxage=3600',
     },
   });
