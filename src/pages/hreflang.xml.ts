@@ -7,6 +7,7 @@
 // Format follows Google's recommended hreflang XML sitemap specification.
 
 import type { APIRoute } from 'astro';
+
 import { getCollection } from 'astro:content';
 
 // Force runtime rendering on Cloudflare Edge
