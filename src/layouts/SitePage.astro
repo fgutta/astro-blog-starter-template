@@ -787,7 +787,7 @@ const year = new Date().getFullYear();
        aria-current={page === 'group' ? 'page' : undefined}>
       {d.nav.group}
     </a>
-    <a href={d.nav.slugs.services}
+    <a href={'&{d.nav.slugs.services}/'}
        role="menuitem"
        aria-current={page === 'services' ? 'page' : undefined}>
       {d.nav.services}
