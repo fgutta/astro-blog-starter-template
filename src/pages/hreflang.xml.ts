@@ -21,7 +21,7 @@ export const GET = async (context) => {
   const siteUrl = baseSite.replace(/\/$/, '');
 
   // 1. Fetch collection entries
-  const allEntries = await getCollection('blog');
+  const allEntries = await getCollection('pages');
 
   // 2. Map completely unmatched slugs using an object dictionary
   const translationGroups = {};
