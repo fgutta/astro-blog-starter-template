@@ -15,14 +15,39 @@ interface Props {
 }
 
 const { d, lang, page, faqs, canon } = Astro.props;
-const meta   = d.meta[page];
-const SITE   = 'https://avantisfs.ca';
-const self_url  = canon ?? Astro.url.href;
+const meta = d.meta[page];
+const SITE = 'https://avantisfs.ca';
 
-// Alternate URL: EN lives at root, FR lives at /fr/
-const alt_url = lang === 'en'
-  ? self_url.replace(SITE, SITE + '/fr')
-  : self_url.replace(SITE + '/fr', SITE);
+// Hardcoded canonical URLs — avoids Astro.url.href currentSlug error
+// in static output mode with the Cloudflare adapter.
+const canonicalMap: Record<string, Record<string, string>> = {
+  en: {
+    home:     `${SITE}/`,
+    group:    `${SITE}/group-insurance/`,
+    services: `${SITE}/other-services/`,
+  },
+  fr: {
+    home:     `${SITE}/fr/`,
+    group:    `${SITE}/fr/assurance-collective/`,
+    services: `${SITE}/fr/autres-services/`,
+  },
+};
+
+const altMap: Record<string, Record<string, string>> = {
+  en: {
+    home:     `${SITE}/fr/`,
+    group:    `${SITE}/fr/assurance-collective/`,
+    services: `${SITE}/fr/autres-services/`,
+  },
+  fr: {
+    home:     `${SITE}/`,
+    group:    `${SITE}/group-insurance/`,
+    services: `${SITE}/other-services/`,
+  },
+};
+
+const self_url = canon ?? canonicalMap[lang][page];
+const alt_url  = altMap[lang][page];
 
 // Nav links — EN at root, FR at /fr/
 const base = lang === 'fr' ? '/fr' : '';
@@ -70,11 +95,6 @@ const breadcrumb = page !== 'home' ? {
 } : null;
 
 const year = new Date().getFullYear();
-
----
-const { currentSlug } = Astro.props; 
-const siteUrl = Astro.site?.toString() || 'https://yourdomain.com';
-const locales = ['en', 'fr'];
 ---
 
 <!DOCTYPE html>
@@ -94,16 +114,6 @@ const locales = ['en', 'fr'];
   <link rel="alternate" hreflang={d.hreflang_self} href={self_url} />
   <link rel="alternate" hreflang={d.hreflang_alt}  href={alt_url} />
   <link rel="alternate" hreflang="x-default"        href={`${SITE}/`} />
-
-  <!-- Main SEO Meta tags -->
-  {locales.map((lang) => (
-    <link 
-      rel="alternate" 
-      hreflang={lang} 
-      href={`${siteUrl}${lang}/${currentSlug}`} 
-    />
-  ))}
-  <link rel="alternate" hreflang="x-default" href={`${siteUrl}en/${currentSlug}`} />
 
   <!-- ── Open Graph ── -->
   <meta property="og:type"        content="website" />
