@@ -7,7 +7,6 @@ import sitemap from "@astrojs/sitemap";
 // https://astro.build/config
 export default defineConfig({
 	site: "https://avantisfs.ca",
-	output: 'server',
 	integrations: [mdx(), sitemap()],
 	adapter: cloudflare({
 		platformProxy: {
