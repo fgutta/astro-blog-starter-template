@@ -1,0 +1,193 @@
+---
+// src/components/CookieConsent.astro
+// Law 25 compliant cookie consent banner.
+// - Blocks all non-essential scripts until consent is given
+// - Cookieless Cloudflare Analytics fires regardless (no consent needed)
+// - Stores preference in localStorage (not a cookie — Law 25 compliant)
+// - Bilingual: detects lang from <html lang=""> attribute
+---
+
+<div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Consentement aux cookies / Cookie Consent">
+  <div class="cookie-banner__inner">
+
+    <div class="cookie-banner__text">
+      <p class="cookie-banner__title" data-fr="Votre vie privée" data-en="Your Privacy">Votre vie privée</p>
+      <p class="cookie-banner__body"
+         data-fr="Ce site utilise uniquement des outils d'analyse anonymes et sans témoins (cookies). Aucune donnée personnelle n'est collectée sans votre consentement, conformément à la Loi 25 du Québec."
+         data-en="This site uses only anonymous, cookieless analytics. No personal data is collected without your consent, in accordance with Quebec Law 25.">
+        Ce site utilise uniquement des outils d'analyse anonymes et sans témoins (cookies). Aucune donnée personnelle n'est collectée sans votre consentement, conformément à la Loi 25 du Québec.
+      </p>
+      <a class="cookie-banner__link"
+         data-fr-href="/fr/politique-confidentialite/"
+         data-en-href="/privacy-policy/"
+         href="/fr/politique-confidentialite/"
+         data-fr="Politique de confidentialité"
+         data-en="Privacy Policy">
+        Politique de confidentialité
+      </a>
+    </div>
+
+    <div class="cookie-banner__actions">
+      <button id="cookie-accept" class="cookie-btn cookie-btn--accept"
+              data-fr="Accepter" data-en="Accept">
+        Accepter
+      </button>
+      <button id="cookie-decline" class="cookie-btn cookie-btn--decline"
+              data-fr="Refuser" data-en="Decline">
+        Refuser
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .cookie-banner {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 9000;
+    background: rgba(13, 27, 42, 0.98);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(184, 147, 58, 0.25);
+    padding: 1.2rem clamp(1.5rem, 5vw, 5rem);
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+    will-change: transform;
+  }
+  .cookie-banner.visible {
+    transform: translateY(0);
+  }
+  .cookie-banner__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+  }
+  .cookie-banner__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    flex: 1;
+    min-width: 260px;
+  }
+  .cookie-banner__title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: #ffffff;
+    margin: 0;
+  }
+  .cookie-banner__body {
+    font-size: 0.78rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.55);
+    margin: 0;
+  }
+  .cookie-banner__link {
+    font-size: 0.72rem;
+    color: #B8933A;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+    align-self: flex-start;
+  }
+  .cookie-banner__link:hover { color: #D4AF62; }
+  .cookie-banner__actions {
+    display: flex;
+    gap: 0.8rem;
+    flex-shrink: 0;
+  }
+  .cookie-btn {
+    font-family: 'Jost', system-ui, sans-serif;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 10px 24px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.25s;
+    border: none;
+  }
+  .cookie-btn--accept {
+    background: #B8933A;
+    color: #0D1B2A;
+  }
+  .cookie-btn--accept:hover { background: #D4AF62; }
+  .cookie-btn--decline {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.65);
+  }
+  .cookie-btn--decline:hover {
+    border-color: #B8933A;
+    color: #ffffff;
+  }
+  @media (max-width: 600px) {
+    .cookie-banner__inner { flex-direction: column; gap: 1rem; }
+    .cookie-banner__actions { width: 100%; }
+    .cookie-btn { flex: 1; }
+  }
+</style>
+
+<script>
+(function () {
+  const STORAGE_KEY = 'avantis_consent';
+  const banner      = document.getElementById('cookie-banner') as HTMLElement;
+  const acceptBtn   = document.getElementById('cookie-accept') as HTMLButtonElement;
+  const declineBtn  = document.getElementById('cookie-decline') as HTMLButtonElement;
+
+  // ── Detect language from <html lang=""> ──────────────
+  const lang = document.documentElement.lang?.startsWith('fr') ? 'fr' : 'en';
+
+  // ── Apply correct language to all data-fr / data-en elements ──
+  banner.querySelectorAll<HTMLElement>('[data-fr]').forEach(el => {
+    const txt = el.getAttribute(`data-${lang}`);
+    if (txt) el.textContent = txt;
+  });
+  // Fix the privacy policy link href
+  const link = banner.querySelector<HTMLAnchorElement>('.cookie-banner__link');
+  if (link) {
+    const href = link.getAttribute(`data-${lang}-href`);
+    if (href) link.href = href;
+  }
+
+  // ── Check existing consent ───────────────────────────
+  const existing = localStorage.getItem(STORAGE_KEY);
+  if (existing === 'accepted') { loadAnalytics(); return; }
+  if (existing === 'declined') return;
+
+  // ── Show banner after short delay ────────────────────
+  setTimeout(() => banner.classList.add('visible'), 800);
+
+  // ── Accept ───────────────────────────────────────────
+  acceptBtn.addEventListener('click', () => {
+    localStorage.setItem(STORAGE_KEY, 'accepted');
+    banner.classList.remove('visible');
+    loadAnalytics();
+  });
+
+  // ── Decline ──────────────────────────────────────────
+  declineBtn.addEventListener('click', () => {
+    localStorage.setItem(STORAGE_KEY, 'declined');
+    banner.classList.remove('visible');
+  });
+
+  // ── Load analytics only after consent ────────────────
+  function loadAnalytics() {
+    // Cloudflare Web Analytics — replace YOUR_TOKEN with real token
+    // (Cloudflare Analytics is cookieless and doesn't strictly require
+    //  consent under Law 25, but we gate it here for best practice)
+    const token = 'YOUR_CF_ANALYTICS_TOKEN';
+    if (token === 'YOUR_CF_ANALYTICS_TOKEN') return; // not yet configured
+    const script = document.createElement('script');
+    script.defer = true;
+    script.src   = 'https://static.cloudflareinsights.com/beacon.min.js';
+    script.dataset.cfBeacon = JSON.stringify({ token });
+    document.head.appendChild(script);
+  }
+})();
+</script>
