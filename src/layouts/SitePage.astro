@@ -782,12 +782,12 @@ const year = new Date().getFullYear();
        aria-current={page === 'home' ? 'page' : undefined}>
       {d.nav.home}
     </a>
-    <a href={lang === 'en' ? 'group-insurance' : '/fr/assurance-collective'}
+    <a href={lang === 'en' ? '/group-insurance' : '/fr/assurance-collective'}
        role="menuitem"
        aria-current={page === 'group' ? 'page' : undefined}>
       {d.nav.group}
     </a>
-    <a href={lang === 'en' ? 'other-services' : '/fr/autres-services'}
+    <a href={lang === 'en' ? '/other-services' : '/fr/autres-services'}
        role="menuitem"
        aria-current={page === 'services' ? 'page' : undefined}>
       {d.nav.services}
