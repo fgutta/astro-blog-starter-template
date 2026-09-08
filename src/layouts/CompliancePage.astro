@@ -1,0 +1,163 @@
+---
+// src/layouts/CompliancePage.astro
+// Shared layout for all compliance pages.
+// Lighter than SitePage — same nav/footer, plain content area.
+// Import and use SitePage's global styles by extending it.
+
+import SitePage from './SitePage.astro';
+import type { Dict, Lang } from '../i18n/index';
+
+interface Props {
+  d:       Dict;
+  lang:    Lang;
+  title:   string;
+  description: string;
+  heading: string;
+  updated: string;   // ISO date string e.g. "2025-01-01"
+}
+
+const { d, lang, title, description, heading, updated } = Astro.props;
+
+// Format date in locale
+const formattedDate = new Date(updated).toLocaleDateString(
+  lang === 'fr' ? 'fr-CA' : 'en-CA',
+  { year: 'numeric', month: 'long', day: 'numeric' }
+);
+
+const updateLabel = lang === 'fr'
+  ? `Dernière mise à jour : ${formattedDate}`
+  : `Last updated: ${formattedDate}`;
+---
+
+<SitePage d={d} lang={lang} page="home">
+  <div class="compliance-page">
+    <div class="compliance-hero">
+      <div class="compliance-hero__inner">
+        <nav class="breadcrumb" aria-label={lang === 'fr' ? 'Fil d\'Ariane' : 'Breadcrumb'}>
+          <a href={lang === 'fr' ? '/fr/' : '/'}>{d.shared.home}</a>
+          <span class="breadcrumb__sep">/</span>
+          <span class="breadcrumb__cur">{heading}</span>
+        </nav>
+        <h1 class="compliance-hero__h1">{heading}</h1>
+        <p class="compliance-hero__updated">{updateLabel}</p>
+      </div>
+    </div>
+
+    <div class="compliance-body">
+      <div class="compliance-body__inner">
+        <slot />
+      </div>
+    </div>
+  </div>
+</SitePage>
+
+<style is:global>
+  /* ── Compliance page layout ── */
+  .compliance-hero {
+    background: var(--ink);
+    padding: calc(72px + 4rem) clamp(1.5rem, 5vw, 5rem) 3.5rem;
+    border-bottom: 1px solid rgba(184, 147, 58, 0.12);
+  }
+  .compliance-hero__inner { max-width: 760px; }
+  .compliance-hero__h1 {
+    font-family: var(--ff-serif);
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 0.8rem;
+  }
+  .compliance-hero__updated {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.35);
+    text-transform: uppercase;
+  }
+
+  /* ── Body content ── */
+  .compliance-body {
+    background: var(--warm);
+    padding: 4rem clamp(1.5rem, 5vw, 5rem) 6rem;
+  }
+  .compliance-body__inner {
+    max-width: 760px;
+  }
+
+  /* ── Prose styles ── */
+  .compliance-body__inner h2 {
+    font-family: var(--ff-serif);
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin: 2.5rem 0 0.8rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--stone-dk);
+  }
+  .compliance-body__inner h2:first-child {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+  }
+  .compliance-body__inner h3 {
+    font-family: var(--ff-serif);
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin: 1.8rem 0 0.6rem;
+  }
+  .compliance-body__inner p {
+    font-size: 0.9rem;
+    line-height: 1.9;
+    color: var(--slate);
+    margin-bottom: 1.1rem;
+  }
+  .compliance-body__inner ul,
+  .compliance-body__inner ol {
+    margin: 0.8rem 0 1.2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .compliance-body__inner li {
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: var(--slate);
+  }
+  .compliance-body__inner ul li::marker { color: var(--gold); }
+  .compliance-body__inner ol li::marker { color: var(--gold); font-family: var(--ff-serif); }
+  .compliance-body__inner a {
+    color: var(--gold);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .compliance-body__inner a:hover { color: var(--ink); }
+  .compliance-body__inner strong { font-weight: 500; color: var(--ink); }
+
+  /* ── Info box ── */
+  .info-box {
+    border-left: 3px solid var(--gold);
+    background: rgba(184, 147, 58, 0.06);
+    padding: 1.2rem 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 0 2px 2px 0;
+  }
+  .info-box p {
+    margin-bottom: 0 !important;
+    font-size: 0.85rem !important;
+  }
+
+  /* ── Contact card ── */
+  .contact-card {
+    background: var(--ink);
+    padding: 2rem 2.2rem;
+    margin-top: 2rem;
+    border-radius: 2px;
+  }
+  .contact-card p {
+    color: rgba(255, 255, 255, 0.6) !important;
+    font-size: 0.85rem !important;
+  }
+  .contact-card a { color: var(--gold) !important; }
+  .contact-card strong { color: var(--white) !important; }
+</style>
