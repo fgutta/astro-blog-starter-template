@@ -832,16 +832,16 @@ const year = new Date().getFullYear();
       <div class="footer-col__head">{d.footer.company}</div>
       <nav class="footer-col__links" aria-label={d.footer.company}>
         <a href={`${base}/`}>{d.footer.links.philosophy}</a>
-        <a href={`${base}/team/`}>{d.footer.links.team}</a>
+        <a href={lang === 'en' ? '/team' : '/fr/equipe'}>{d.footer.links.team}</a>
         <a href="#contact">{d.footer.links.contact}</a>
       </nav>
     </div>
     <div class="footer-col">
       <div class="footer-col__head">{d.footer.legal}</div>
       <nav class="footer-col__links" aria-label={d.footer.legal}>
-        <a href={`${base}/legal-notices/`}>{d.footer.links.notices}</a>
-        <a href={`${base}/privacy-policy/`}>{d.footer.links.privacy}</a>
-        <a href={`${base}/regulatory-disclosures/`}>{d.footer.links.regulatory}</a>
+        <a href={lang === 'en' ? '/legal-notices' : '/fr/mentions-legales'}>{d.footer.links.notices}</a>
+        <a href={lang === 'en' ? '/privacy-policy' : '/fr/politique-confidentialite'}>{d.footer.links.privacy}</a>
+        <a href={lang === 'en' ? '/regulatory-disclosures' : '/fr/divulgations-reglementaires'}>{d.footer.links.regulatory}</a>
       </nav>
     </div>
   </div>
