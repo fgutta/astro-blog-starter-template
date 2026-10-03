@@ -1,0 +1,288 @@
+---
+// src/pages/fr/equipe.astro — French team page at /fr/equipe/
+import SitePage from '../../layouts/SitePage.astro';
+import { fr } from '../../i18n/fr';
+const d = fr;
+
+const team = [
+  {
+    name:        'Francis Anthony Gutta',
+    title:       'Conseiller en sécurité financière',
+    role:        'Fondateur & conseiller principal',
+    photo:       '/images/team/francis-gutta.webp',
+    photo_alt:   'Francis Anthony Gutta — Conseiller en sécurité financière, Avantis Solution Financière Inc.',
+    email:       'francis@avantisfs.ca',
+    phone:       '+1 (514) 000-0000',
+    linkedin:    'https://linkedin.com/in/francisanthonygutta',
+    calendly:    'https://calendly.com/avantisfs',
+    languages:   ['Anglais', 'Français', 'Italien', 'Espagnol'],
+    designations: ['Conseiller en sécurité financière', 'Inscrit à l\'AMF'],
+    specialties: [
+      'Assurance collective et avantages sociaux',
+      'Assurance vie corporative (COLI)',
+      'Régime de retraite individuel (RRI)',
+      'Gestion de patrimoine et planification successorale',
+      'Stratégies de relève d\'entreprise',
+      'Fonds distincts Sun Life',
+    ],
+    bio: [
+      'Francis Anthony Gutta a fondé Avantis Solution Financière Inc. avec une conviction claire : chaque client mérite de comprendre non seulement ce que son conseiller recommande, mais pourquoi. Avec une formation en génie et une maîtrise approfondie de la planification financière, Francis apporte une rigueur analytique à la gestion de patrimoine qui le distingue.',
+      'Il se spécialise dans l\'accompagnement des propriétaires d\'entreprise incorporée, des professionnels (médecins, avocats, comptables) et des familles à valeur nette élevée de la grande région de Montréal. Sa pratique intègre l\'assurance collective, l\'assurance de personnes et la gestion de patrimoine comme un tout cohérent — et non comme des produits distincts.',
+      'Francis œuvre dans le cadre du réseau Sun Life du Canada et est inscrit à l\'Autorité des marchés financiers (AMF) à titre de conseiller en sécurité financière.',
+    ],
+    amf_reg:  '[Numéro d\'inscription AMF]',
+    lead:     true,
+  },
+  {
+    name:        'Gina [Nom de famille]',
+    title:       'Conseillère en sécurité financière',
+    role:        'Conseillère associée',
+    photo:       '/images/team/gina.webp',
+    photo_alt:   'Gina — Conseillère en sécurité financière associée, Avantis Solution Financière Inc.',
+    email:       'gina@avantisfs.ca',
+    phone:       '+1 (514) 000-0000',
+    linkedin:    'https://linkedin.com/in/',
+    calendly:    'https://calendly.com/avantisfs-gina',
+    languages:   ['Anglais', 'Français', 'Tamil'],
+    designations: ['Conseillère en sécurité financière', 'Inscrite à l\'AMF'],
+    specialties: [
+      'Assurance collective et avantages sociaux',
+      'Assurance de personnes',
+      'Régimes santé et dentaire',
+      'Programmes d\'aide aux employés',
+      'Accueil et soutien à la clientèle',
+    ],
+    bio: [
+      'Gina a rejoint Avantis Solution Financière Inc. à titre de conseillère associée, apportant son dévouement au service à la clientèle et son expertise en assurance collective et en protection personnelle.',
+      'Elle accompagne les employeurs de toutes tailles dans la conception, la mise en place et la gestion de régimes d\'avantages sociaux — de l\'implantation initiale jusqu\'au renouvellement annuel. Son approche centrée sur le client et ses capacités multilingues lui permettent de servir une clientèle diversifiée dans la région de Montréal.',
+      'Gina est inscrite à l\'Autorité des marchés financiers (AMF) à titre de conseillère en sécurité financière et œuvre dans le cadre du réseau Sun Life du Canada.',
+    ],
+    amf_reg:  '[Numéro d\'inscription AMF]',
+    lead:     false,
+  },
+];
+---
+
+<SitePage d={d} lang="fr" page="home" canon="https://avantisfs.ca/fr/equipe/">
+
+  <!-- HERO -->
+  <section class="svc-hero">
+    <div class="svc-hero__inner">
+      <p class="eyebrow eyebrow--light">Montréal, Québec</p>
+      <h1 class="svc-hero__h1">
+        Notre <em>équipe</em>
+      </h1>
+      <p class="svc-hero__body">
+        Avantis Solution Financière Inc. repose sur une conviction : un bon conseil financier
+        est avant tout personnel. Nos conseillers prennent le temps de comprendre votre
+        situation complète — et expliquent chaque recommandation clairement.
+      </p>
+    </div>
+  </section>
+
+  <!-- PROFILS -->
+  <section class="team-section" aria-labelledby="team-heading">
+    <h2 class="sr-only" id="team-heading">Nos conseillers</h2>
+
+    {team.map((advisor, idx) => (
+      <div class={`advisor-block ${idx % 2 === 1 ? 'advisor-block--alt' : ''}`} id={advisor.name.split(' ')[0].toLowerCase()}>
+        <div class="advisor-block__inner">
+
+          <!-- Colonne photo -->
+          <div class="advisor-photo-col">
+            <div class="advisor-photo-wrap">
+              <img
+                src={advisor.photo}
+                alt={advisor.photo_alt}
+                class="advisor-photo"
+                width="480"
+                height="560"
+                loading={idx === 0 ? 'eager' : 'lazy'}
+              />
+              <div class="advisor-photo-placeholder" aria-hidden="true">
+                <span class="advisor-photo-placeholder__initials">
+                  {advisor.name.split(' ').map((n: string) => n[0]).slice(0,2).join('')}
+                </span>
+              </div>
+            </div>
+
+            <div class="advisor-contact-card">
+              <a href={`mailto:${advisor.email}`} class="advisor-contact-item">
+                <span class="advisor-contact-item__icon">✉</span>
+                <span>{advisor.email}</span>
+              </a>
+              <a href={`tel:${advisor.phone.replace(/\s/g,'')}`} class="advisor-contact-item">
+                <span class="advisor-contact-item__icon">☎</span>
+                <span>{advisor.phone}</span>
+              </a>
+              <a href={advisor.linkedin} target="_blank" rel="noopener" class="advisor-contact-item">
+                <span class="advisor-contact-item__icon">in</span>
+                <span>Profil LinkedIn</span>
+              </a>
+              <a href={advisor.calendly} target="_blank" rel="noopener" class="advisor-book-btn">
+                Prendre rendez-vous
+              </a>
+            </div>
+          </div>
+
+          <!-- Colonne contenu -->
+          <div class="advisor-content-col">
+
+            <div class="advisor-header">
+              <div class="advisor-header__text">
+                <h2 class="advisor-name">{advisor.name}</h2>
+                <p class="advisor-title">{advisor.title}</p>
+                {advisor.lead && (
+                  <p class="advisor-role">{advisor.role}</p>
+                )}
+                {!advisor.lead && (
+                  <p class="advisor-role">{advisor.role}</p>
+                )}
+              </div>
+              <div class="advisor-sunlife-badge" title="Réseau Sun Life du Canada">
+                <span class="advisor-sunlife-badge__text">Réseau Sun Life</span>
+              </div>
+            </div>
+
+            <div class="gold-rule" style="margin:1.2rem 0 1.8rem"></div>
+
+            <div class="advisor-bio">
+              {advisor.bio.map((para: string) => (
+                <p>{para}</p>
+              ))}
+            </div>
+
+            <div class="advisor-details-grid">
+
+              <div class="advisor-specialties">
+                <p class="advisor-details-label">Domaines d'expertise</p>
+                <ul class="advisor-list">
+                  {advisor.specialties.map((s: string) => (
+                    <li class="advisor-list-item">
+                      <span class="advisor-list-dot" aria-hidden="true"></span>
+                      {s}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div class="advisor-meta">
+                <div class="advisor-meta-block">
+                  <p class="advisor-details-label">Langues</p>
+                  <div class="advisor-tags">
+                    {advisor.languages.map((lang: string) => (
+                      <span class="advisor-tag">{lang}</span>
+                    ))}
+                  </div>
+                </div>
+
+                <div class="advisor-meta-block" style="margin-top:1.8rem">
+                  <p class="advisor-details-label">Certifications</p>
+                  <div class="advisor-tags">
+                    {advisor.designations.map((des: string) => (
+                      <span class="advisor-tag">{des}</span>
+                    ))}
+                  </div>
+                </div>
+
+                <div class="advisor-meta-block" style="margin-top:1.8rem">
+                  <p class="advisor-details-label">Inscription AMF</p>
+                  <p class="advisor-amf">{advisor.amf_reg}</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
+
+  </section>
+
+  <!-- NOTE RÉGLEMENTAIRE -->
+  <div class="team-disclaimer">
+    <div class="team-disclaimer__inner">
+      <p class="eyebrow" style="margin-bottom:1rem">Renseignements réglementaires</p>
+      <p>
+        Tous les conseillers d'Avantis Solution Financière Inc. sont inscrits auprès de l'
+        <strong>Autorité des marchés financiers (AMF)</strong> et exercent leurs activités
+        dans le cadre du réseau de distribution de <strong>Sun Life du Canada</strong>.
+        Vous pouvez vérifier les inscriptions à
+        <a href="https://lautorite.qc.ca/grand-public/registres/" target="_blank" rel="noopener">lautorite.qc.ca</a>.
+        Les produits d'assurance sont offerts par l'intermédiaire de Sun Life du Canada,
+        compagnie d'assurance-vie.
+      </p>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <section class="cta-banner" id="contact">
+    <div>
+      <h2 class="cta-banner__h2">
+        Vous ne savez pas à qui vous adresser? <em>L'un ou l'autre fera l'affaire.</em>
+      </h2>
+      <p class="cta-banner__sub">
+        Écrivez-nous et nous vous orienterons vers le conseiller le mieux adapté à votre situation.
+      </p>
+    </div>
+    <div style="position:relative;z-index:1">
+      <a href="mailto:info@avantisfs.ca" class="btn btn--gold">Nous contacter</a>
+    </div>
+  </section>
+
+</SitePage>
+
+<!-- Styles identical to EN page — shared via SitePage global styles -->
+<!-- Component-specific styles defined inline here for portability -->
+<style>
+  .team-section { background: var(--warm); }
+  .advisor-block { padding: 5rem clamp(1.5rem,5vw,5rem); border-bottom: 1px solid var(--stone-dk); }
+  .advisor-block--alt { background: var(--stone); }
+  .advisor-block__inner { display: grid; grid-template-columns: 340px 1fr; gap: 5rem; max-width: 1100px; margin: 0 auto; align-items: start; }
+  .advisor-photo-col { display: flex; flex-direction: column; gap: 1.5rem; position: sticky; top: calc(72px + 2rem); }
+  .advisor-photo-wrap { position: relative; aspect-ratio: 4/5; border-radius: 2px; overflow: hidden; background: var(--ink-soft); border: 1px solid rgba(184,147,58,.15); }
+  .advisor-photo { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; position: absolute; inset: 0; opacity: 0; transition: opacity .3s; }
+  .advisor-photo[src]:not([src=""]):not([src*="placeholder"]) { opacity: 1; }
+  .advisor-photo-placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(155deg, var(--ink-soft), var(--ink)); }
+  .advisor-photo-placeholder::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 30%, rgba(184,147,58,.1), transparent 60%); }
+  .advisor-photo-placeholder__initials { font-family: var(--ff-serif,'Playfair Display',serif); font-size: 3.5rem; font-weight: 300; color: rgba(184,147,58,.4); position: relative; z-index: 1; letter-spacing: .1em; }
+  .advisor-contact-card { background: var(--ink); border: 1px solid rgba(184,147,58,.15); border-radius: 2px; padding: 1.5rem; display: flex; flex-direction: column; gap: .8rem; }
+  .advisor-contact-item { display: flex; align-items: center; gap: .75rem; font-size: .78rem; color: rgba(255,255,255,.5); text-decoration: none; transition: color .2s; word-break: break-all; }
+  .advisor-contact-item:hover { color: var(--gold); }
+  .advisor-contact-item__icon { width: 24px; height: 24px; min-width: 24px; border: 1px solid rgba(184,147,58,.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .65rem; color: var(--gold); flex-shrink: 0; }
+  .advisor-book-btn { display: flex; align-items: center; justify-content: center; margin-top: .4rem; padding: 11px; background: var(--gold); color: var(--ink); border-radius: 2px; font-family: var(--ff-sans,'Jost',sans-serif); font-size: .68rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; text-decoration: none; transition: background .25s; }
+  .advisor-book-btn:hover { background: var(--gold-lt,#D4AF62); }
+  .advisor-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+  .advisor-name { font-family: var(--ff-serif,'Playfair Display',serif); font-size: clamp(1.8rem,3vw,2.6rem); font-weight: 300; color: var(--ink); line-height: 1.15; margin-bottom: .3rem; }
+  .advisor-title { font-size: .78rem; font-weight: 400; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+  .advisor-role { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--slate); margin-top: .3rem; }
+  .advisor-sunlife-badge { border: 1px solid rgba(184,147,58,.25); padding: 6px 14px; border-radius: 2px; flex-shrink: 0; margin-top: .25rem; }
+  .advisor-sunlife-badge__text { font-size: .6rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); white-space: nowrap; }
+  .advisor-bio { display: flex; flex-direction: column; gap: .9rem; margin-bottom: 2.5rem; }
+  .advisor-bio p { font-size: .9rem; line-height: 1.9; color: var(--slate); }
+  .advisor-details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; border-top: 1px solid var(--stone-dk); padding-top: 2rem; }
+  .advisor-details-label { font-size: .6rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: .8rem; }
+  .advisor-list { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
+  .advisor-list-item { display: flex; align-items: flex-start; gap: .7rem; font-size: .83rem; color: var(--slate); line-height: 1.5; }
+  .advisor-list-dot { width: 5px; height: 5px; min-width: 5px; border-radius: 50%; background: var(--gold); margin-top: .42rem; flex-shrink: 0; }
+  .advisor-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
+  .advisor-tag { font-size: .62rem; font-weight: 400; letter-spacing: .1em; text-transform: uppercase; padding: 4px 10px; border: 1px solid var(--stone-dk); color: var(--slate); border-radius: 1px; }
+  .advisor-amf { font-size: .8rem; color: var(--slate); font-family: 'Courier New', monospace; }
+  .team-disclaimer { background: var(--ink); padding: 3rem clamp(1.5rem,5vw,5rem); border-top: 1px solid rgba(184,147,58,.12); }
+  .team-disclaimer__inner { max-width: 760px; margin: 0 auto; }
+  .team-disclaimer p { font-size: .82rem; line-height: 1.8; color: rgba(255,255,255,.4); }
+  .team-disclaimer strong { color: rgba(255,255,255,.7); font-weight: 500; }
+  .team-disclaimer a { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+  @media (max-width: 1024px) {
+    .advisor-block__inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .advisor-photo-col { position: static; display: grid; grid-template-columns: 200px 1fr; gap: 1.5rem; align-items: start; }
+    .advisor-photo-wrap { aspect-ratio: 3/4; }
+    .advisor-details-grid { grid-template-columns: 1fr; gap: 1.8rem; }
+  }
+  @media (max-width: 600px) {
+    .advisor-photo-col { grid-template-columns: 1fr; }
+    .advisor-block { padding: 3rem 1.5rem; }
+    .advisor-header { flex-direction: column; gap: .8rem; }
+  }
+</style>
